@@ -6,8 +6,6 @@
 #include "NetworkLogic.h"
 #include <array>
 
-USING_NS_CC;
-
 class HelloWorld : public cocos2d::Layer
 {
 public:
@@ -23,7 +21,7 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
     
-    bool onTouchBegan(Touch* touch, Event *event);
+    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event *event);
 
 private:
     virtual void update(float delta);

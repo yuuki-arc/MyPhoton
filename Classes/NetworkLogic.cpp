@@ -87,8 +87,8 @@ NetworkLogic::NetworkLogic(const wchar_t* appVersion,	ExitGames::LoadBalancing::
 {
 	mStateAccessor.setState(STATE_INITIALIZED);
 	mLoadBalancingClient.setDebugOutputLevel(ExitGames::Common::DebugLevel::INFO); // that instance of LoadBalancingClient and its implementation details
-	mLogger.setListener(*this);
-	mLogger.setDebugOutputLevel(ExitGames::Common::DebugLevel::INFO); // this class
+//	mLogger.setListener(*this);
+//	mLogger.setDebugOutputLevel(ExitGames::Common::DebugLevel::INFO); // this class
 	ExitGames::Common::Base::setListener(this);
 	ExitGames::Common::Base::setDebugOutputLevel(ExitGames::Common::DebugLevel::INFO); // all classes that inherit from Base 
 }

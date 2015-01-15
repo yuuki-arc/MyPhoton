@@ -107,7 +107,7 @@ private:
 
 	ExitGames::LoadBalancing::Client mLoadBalancingClient;
 	ExitGames::Common::JString mGameID;
-	ExitGames::Common::Logger mLogger;
+//	ExitGames::Common::Logger mLogger;
 	StateAccessor mStateAccessor;
 	Input mLastInput;
 };
