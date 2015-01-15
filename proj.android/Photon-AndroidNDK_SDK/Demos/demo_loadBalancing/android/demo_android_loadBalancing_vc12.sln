@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 13.00
+# Visual Studio 2013
+Project("{8C4BBF34-3C53-41A9-828B-57F2F4E53962}") = "demo_android_loadBalancing", "demo_android_loadBalancing.wgaproj", "{1F148AF9-CD63-4812-9E18-5501A3D244FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		debug_android_armeabi|Android = debug_android_armeabi|Android
+		debug_android_armeabi-v7a|Android = debug_android_armeabi-v7a|Android
+		release_android_armeabi|Android = release_android_armeabi|Android
+		release_android_armeabi-v7a|Android = release_android_armeabi-v7a|Android
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F148AF9-CD63-4812-9E18-5501A3D244FF}.debug_android_armeabi|Android.ActiveCfg = debug_android_armeabi|Android
+		{1F148AF9-CD63-4812-9E18-5501A3D244FF}.debug_android_armeabi|Android.Build.0 = debug_android_armeabi|Android
+		{1F148AF9-CD63-4812-9E18-5501A3D244FF}.debug_android_armeabi|Android.Deploy.0 = debug_android_armeabi|Android
+		{1F148AF9-CD63-4812-9E18-5501A3D244FF}.debug_android_armeabi-v7a|Android.ActiveCfg = debug_android_armeabi-v7a|Android
+		{1F148AF9-CD63-4812-9E18-5501A3D244FF}.debug_android_armeabi-v7a|Android.Build.0 = debug_android_armeabi-v7a|Android
+		{1F148AF9-CD63-4812-9E18-5501A3D244FF}.debug_android_armeabi-v7a|Android.Deploy.0 = debug_android_armeabi-v7a|Android
+		{1F148AF9-CD63-4812-9E18-5501A3D244FF}.release_android_armeabi|Android.ActiveCfg = release_android_armeabi|Android
+		{1F148AF9-CD63-4812-9E18-5501A3D244FF}.release_android_armeabi|Android.Build.0 = release_android_armeabi|Android
+		{1F148AF9-CD63-4812-9E18-5501A3D244FF}.release_android_armeabi|Android.Deploy.0 = release_android_armeabi|Android
+		{1F148AF9-CD63-4812-9E18-5501A3D244FF}.release_android_armeabi-v7a|Android.ActiveCfg = release_android_armeabi-v7a|Android
+		{1F148AF9-CD63-4812-9E18-5501A3D244FF}.release_android_armeabi-v7a|Android.Build.0 = release_android_armeabi-v7a|Android
+		{1F148AF9-CD63-4812-9E18-5501A3D244FF}.release_android_armeabi-v7a|Android.Deploy.0 = release_android_armeabi-v7a|Android
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

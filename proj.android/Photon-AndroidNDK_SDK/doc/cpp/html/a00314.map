@@ -1,0 +1,18 @@
+<map id="DeSerializer.h" name="DeSerializer.h">
+<area shape="rect" id="node3" href="$a00076.html" title="Common.h" alt="" coords="1513,77,1585,101"/>
+<area shape="rect" id="node5" href="$a00120.html" title="EventData.h" alt="" coords="949,149,1029,173"/>
+<area shape="rect" id="node120" href="$a00166.html" title="OperationRequest.h" alt="" coords="1055,221,1173,245"/>
+<area shape="rect" id="node126" href="$a00168.html" title="OperationResponse.h" alt="" coords="798,149,924,173"/>
+<area shape="rect" id="node131" href="$a00066.html" title="AuthenticationValues.h" alt="" coords="1351,365,1485,389"/>
+<area shape="rect" id="node138" href="$a00123.html" title="FriendInfo.h" alt="" coords="1387,149,1465,173"/>
+<area shape="rect" id="node7" href="$a00182.html" title="PhotonListener.h" alt="" coords="813,221,915,245"/>
+<area shape="rect" id="node32" href="$a00184.html" title="PhotonPeer.h" alt="" coords="687,365,773,389"/>
+<area shape="rect" id="node34" href="$a00140.html" title="LitePeer.h" alt="" coords="690,444,760,468"/>
+<area shape="rect" id="node67" href="$a00138.html" title="Listener.h" alt="" coords="1289,523,1359,547"/>
+<area shape="rect" id="node72" href="$a00173.html" title="Peer.h" alt="" coords="1351,444,1404,468"/>
+<area shape="rect" id="node69" href="$a00075.html" title="Client.h" alt="" coords="1370,595,1427,619"/>
+<area shape="rect" id="node74" href="$a00151.html" title="MutablePlayer.h" alt="" coords="1435,523,1533,547"/>
+<area shape="rect" id="node80" href="$a00155.html" title="MutableRoom.h" alt="" coords="2051,523,2145,547"/>
+<area shape="rect" id="node158" href="$a00198.html" title="Player.h" alt="" coords="1831,444,1892,468"/>
+<area shape="rect" id="node179" href="$a00216.html" title="Room.h" alt="" coords="2047,221,2105,245"/>
+</map>

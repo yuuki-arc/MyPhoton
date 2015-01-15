@@ -1,0 +1,24 @@
+<map id="CustomType.h" name="CustomType.h">
+<area shape="rect" id="node5" href="$a00242.html" title="ValueObject.h" alt="" coords="1640,149,1731,173"/>
+<area shape="rect" id="node9" href="$a00125.html" title="Hashtable.h" alt="" coords="1586,293,1664,317"/>
+<area shape="rect" id="node11" href="$a00099.html" title="DictionaryBase.h" alt="" coords="1417,365,1521,389"/>
+<area shape="rect" id="node13" href="$a00097.html" title="Dictionary.h" alt="" coords="1434,437,1512,461"/>
+<area shape="rect" id="node15" href="$a00076.html" title="Common.h" alt="" coords="1516,581,1588,605"/>
+<area shape="rect" id="node17" href="$a00120.html" title="EventData.h" alt="" coords="947,653,1027,677"/>
+<area shape="rect" id="node132" href="$a00166.html" title="OperationRequest.h" alt="" coords="1054,725,1172,749"/>
+<area shape="rect" id="node138" href="$a00168.html" title="OperationResponse.h" alt="" coords="795,653,921,677"/>
+<area shape="rect" id="node143" href="$a00066.html" title="AuthenticationValues.h" alt="" coords="1350,869,1484,893"/>
+<area shape="rect" id="node150" href="$a00123.html" title="FriendInfo.h" alt="" coords="1386,653,1464,677"/>
+<area shape="rect" id="node19" href="$a00182.html" title="PhotonListener.h" alt="" coords="811,725,913,749"/>
+<area shape="rect" id="node44" href="$a00184.html" title="PhotonPeer.h" alt="" coords="689,869,775,893"/>
+<area shape="rect" id="node46" href="$a00140.html" title="LitePeer.h" alt="" coords="689,948,759,972"/>
+<area shape="rect" id="node79" href="$a00138.html" title="Listener.h" alt="" coords="1287,1027,1357,1051"/>
+<area shape="rect" id="node84" href="$a00173.html" title="Peer.h" alt="" coords="1349,948,1403,972"/>
+<area shape="rect" id="node81" href="$a00075.html" title="Client.h" alt="" coords="1369,1099,1425,1123"/>
+<area shape="rect" id="node86" href="$a00151.html" title="MutablePlayer.h" alt="" coords="1433,1027,1532,1051"/>
+<area shape="rect" id="node92" href="$a00155.html" title="MutableRoom.h" alt="" coords="2050,1027,2144,1051"/>
+<area shape="rect" id="node170" href="$a00198.html" title="Player.h" alt="" coords="1829,948,1891,972"/>
+<area shape="rect" id="node191" href="$a00216.html" title="Room.h" alt="" coords="2071,725,2129,749"/>
+<area shape="rect" id="node218" href="$a00222.html" title="Serializer.h" alt="" coords="1157,509,1232,533"/>
+<area shape="rect" id="node231" href="$a00094.html" title="DeSerializer.h" alt="" coords="1733,437,1821,461"/>
+</map>

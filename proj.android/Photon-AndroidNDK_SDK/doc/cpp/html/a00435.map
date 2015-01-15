@@ -1,0 +1,32 @@
+<map id="ToString" name="ToString">
+<area shape="rect" id="node3" href="$a00025.html" title="Base" alt="" coords="125,573,171,597"/>
+<area shape="rect" id="node78" href="$a00039.html" title="JString" alt="" coords="121,621,175,645"/>
+<area shape="rect" id="node7" href="$a00026.html" title="BaseCharString" alt="" coords="253,53,352,77"/>
+<area shape="rect" id="node13" href="$a00030.html" title="CustomTypeBase" alt="" coords="249,101,356,125"/>
+<area shape="rect" id="node17" href="$a00031.html" title="CustomTypeFactory\&lt;\l typeCode \&gt;" alt="" coords="240,150,365,186"/>
+<area shape="rect" id="node19" href="$a00032.html" title="DeSerializer" alt="" coords="263,211,343,235"/>
+<area shape="rect" id="node21" href="$a00034.html" title="DictionaryBase" alt="" coords="255,259,350,283"/>
+<area shape="rect" id="node30" href="$a00035.html" title="EGTime" alt="" coords="273,355,332,379"/>
+<area shape="rect" id="node32" href="$a00038.html" title="Hashtable" alt="" coords="267,403,338,427"/>
+<area shape="rect" id="node38" href="$a00040.html" title="JVector\&lt; EType \&gt;" alt="" coords="249,748,357,772"/>
+<area shape="rect" id="node40" href="$a00040.html" title="JVector\&lt; Common::ExitGames\l::Common::JString \&gt;" alt="" coords="569,561,735,597"/>
+<area shape="rect" id="node42" href="$a00040.html" title="JVector\&lt; ExitGames\l::LoadBalancing::Player * \&gt;" alt="" coords="577,631,727,667"/>
+<area shape="rect" id="node44" href="$a00040.html" title="JVector\&lt; nByte \&gt;" alt="" coords="599,891,705,915"/>
+<area shape="rect" id="node46" href="$a00040.html" title="JVector\&lt; ExitGames\l::LoadBalancing::FriendInfo \&gt;" alt="" coords="571,734,733,770"/>
+<area shape="rect" id="node48" href="$a00040.html" title="JVector\&lt; ExitGames\l::LoadBalancing::Room * \&gt;" alt="" coords="578,806,726,842"/>
+<area shape="rect" id="node50" href="$a00040.html" title="JVector\&lt; ExitGames\l::Common::Object \&gt;" alt="" coords="592,959,712,995"/>
+<area shape="rect" id="node52" href="$a00049.html" title="Object" alt="" coords="276,1056,329,1080"/>
+<area shape="rect" id="node58" href="$a00057.html" title="Serializer" alt="" coords="269,1104,336,1128"/>
+<area shape="rect" id="node62" href="$a00037.html" title="FriendInfo" alt="" coords="267,1200,338,1224"/>
+<area shape="rect" id="node64" href="$a00055.html" title="Player" alt="" coords="277,1248,329,1272"/>
+<area shape="rect" id="node68" href="$a00056.html" title="Room" alt="" coords="278,1296,327,1320"/>
+<area shape="rect" id="node9" href="$a00023.html" title="ANSIString" alt="" coords="615,53,689,77"/>
+<area shape="rect" id="node11" href="$a00059.html" title="UTF8String" alt="" coords="615,5,689,29"/>
+<area shape="rect" id="node15" href="$a00029.html" title="CustomType\&lt; typeCode \&gt;" alt="" coords="579,101,725,125"/>
+<area shape="rect" id="node23" href="$a00033.html" title="Dictionary\&lt; nByte,\l Common::Object \&gt;" alt="" coords="917,257,1029,293"/>
+<area shape="rect" id="node25" href="$a00033.html" title="Dictionary\&lt; EKeyType,\l EValueType \&gt;" alt="" coords="587,225,717,261"/>
+<area shape="rect" id="node54" href="$a00041.html" title="KeyObject\&lt; Etype \&gt;" alt="" coords="593,1100,711,1124"/>
+<area shape="rect" id="node56" href="$a00060.html" title="ValueObject\&lt; Etype \&gt;" alt="" coords="589,1052,715,1076"/>
+<area shape="rect" id="node66" href="$a00045.html" title="MutablePlayer" alt="" coords="607,1248,697,1272"/>
+<area shape="rect" id="node70" href="$a00047.html" title="MutableRoom" alt="" coords="609,1296,695,1320"/>
+</map>

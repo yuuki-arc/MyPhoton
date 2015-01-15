@@ -1,0 +1,20 @@
+<map id="DictionaryBase.h" name="DictionaryBase.h">
+<area shape="rect" id="node3" href="$a00097.html" title="Dictionary.h" alt="" coords="1530,77,1608,101"/>
+<area shape="rect" id="node5" href="$a00076.html" title="Common.h" alt="" coords="1512,221,1584,245"/>
+<area shape="rect" id="node7" href="$a00120.html" title="EventData.h" alt="" coords="947,293,1027,317"/>
+<area shape="rect" id="node122" href="$a00166.html" title="OperationRequest.h" alt="" coords="1054,365,1172,389"/>
+<area shape="rect" id="node128" href="$a00168.html" title="OperationResponse.h" alt="" coords="795,293,921,317"/>
+<area shape="rect" id="node133" href="$a00066.html" title="AuthenticationValues.h" alt="" coords="1350,509,1484,533"/>
+<area shape="rect" id="node140" href="$a00123.html" title="FriendInfo.h" alt="" coords="1363,293,1441,317"/>
+<area shape="rect" id="node9" href="$a00182.html" title="PhotonListener.h" alt="" coords="811,365,913,389"/>
+<area shape="rect" id="node34" href="$a00184.html" title="PhotonPeer.h" alt="" coords="687,509,773,533"/>
+<area shape="rect" id="node36" href="$a00140.html" title="LitePeer.h" alt="" coords="689,588,759,612"/>
+<area shape="rect" id="node69" href="$a00138.html" title="Listener.h" alt="" coords="1287,667,1357,691"/>
+<area shape="rect" id="node74" href="$a00173.html" title="Peer.h" alt="" coords="1349,588,1403,612"/>
+<area shape="rect" id="node71" href="$a00075.html" title="Client.h" alt="" coords="1369,739,1425,763"/>
+<area shape="rect" id="node76" href="$a00151.html" title="MutablePlayer.h" alt="" coords="1433,667,1532,691"/>
+<area shape="rect" id="node82" href="$a00155.html" title="MutableRoom.h" alt="" coords="2050,667,2144,691"/>
+<area shape="rect" id="node160" href="$a00198.html" title="Player.h" alt="" coords="1829,588,1891,612"/>
+<area shape="rect" id="node181" href="$a00216.html" title="Room.h" alt="" coords="2071,365,2129,389"/>
+<area shape="rect" id="node208" href="$a00222.html" title="Serializer.h" alt="" coords="1650,149,1725,173"/>
+</map>

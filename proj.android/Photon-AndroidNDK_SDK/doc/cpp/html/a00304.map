@@ -1,0 +1,17 @@
+<map id="Common.h" name="Common.h">
+<area shape="rect" id="node3" href="$a00120.html" title="EventData.h" alt="" coords="949,77,1029,101"/>
+<area shape="rect" id="node118" href="$a00166.html" title="OperationRequest.h" alt="" coords="1055,149,1173,173"/>
+<area shape="rect" id="node124" href="$a00168.html" title="OperationResponse.h" alt="" coords="798,77,924,101"/>
+<area shape="rect" id="node129" href="$a00066.html" title="AuthenticationValues.h" alt="" coords="1351,293,1485,317"/>
+<area shape="rect" id="node136" href="$a00123.html" title="FriendInfo.h" alt="" coords="1387,77,1465,101"/>
+<area shape="rect" id="node5" href="$a00182.html" title="PhotonListener.h" alt="" coords="813,149,915,173"/>
+<area shape="rect" id="node30" href="$a00184.html" title="PhotonPeer.h" alt="" coords="687,293,773,317"/>
+<area shape="rect" id="node32" href="$a00140.html" title="LitePeer.h" alt="" coords="690,372,760,396"/>
+<area shape="rect" id="node65" href="$a00138.html" title="Listener.h" alt="" coords="1289,451,1359,475"/>
+<area shape="rect" id="node70" href="$a00173.html" title="Peer.h" alt="" coords="1351,372,1404,396"/>
+<area shape="rect" id="node67" href="$a00075.html" title="Client.h" alt="" coords="1370,523,1427,547"/>
+<area shape="rect" id="node72" href="$a00151.html" title="MutablePlayer.h" alt="" coords="1435,451,1533,475"/>
+<area shape="rect" id="node78" href="$a00155.html" title="MutableRoom.h" alt="" coords="2051,451,2145,475"/>
+<area shape="rect" id="node156" href="$a00198.html" title="Player.h" alt="" coords="1831,372,1892,396"/>
+<area shape="rect" id="node177" href="$a00216.html" title="Room.h" alt="" coords="2047,149,2105,173"/>
+</map>
