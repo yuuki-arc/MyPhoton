@@ -73,9 +73,16 @@ bool HelloWorld::init()
     this->addChild(sprite, 0);
     
     // Photonネットワーククラスのインスタンスを作成
+    CCLOG("pre-networkLogic new");
     networkLogic = new NetworkLogic(L"1.0");
+    CCLOG("after-networkLogic new");
     
     scheduleUpdate();
+
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->setSwallowTouches(true);
+    listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
     
     return true;
 }
@@ -97,6 +104,7 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+    CCLOG("onTouchBegan:%d", networkLogic->playerNr);
     if (networkLogic->playerNr) {
         this->addParticle(networkLogic->playerNr, touch->getLocation().x, touch->getLocation().y);
         
@@ -114,9 +122,11 @@ void HelloWorld::update(float delta)
 {
     networkLogic->run();
     
+    CCLOG("schedule update: network-state:%d", networkLogic->getState());
     switch (networkLogic->getState()) {
         case STATE_CONNECTED:
         case STATE_LEFT:
+            CCLOG("schedule update: CONNECTED OR LEFT");
             // ルームが存在すればジョイン、なければ作成する
             if (networkLogic->isRoomExists()) {
                 CCLOG("Join");
@@ -127,6 +137,7 @@ void HelloWorld::update(float delta)
             }
             break;
         case STATE_DISCONNECTED:
+            CCLOG("schedule update: DISCONNECTED");
             // 接続が切れたら再度接続
             networkLogic->connect();
             break;
@@ -136,6 +147,7 @@ void HelloWorld::update(float delta)
         case STATE_LEAVING:
         case STATE_DISCONNECTING:
         default:
+            CCLOG("schedule update: other");
             break;
     }
     
