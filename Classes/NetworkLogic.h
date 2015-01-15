@@ -1,6 +1,10 @@
 #ifndef __NETWORK_LOGIC_H
 #define __NETWORK_LOGIC_H
 
+#include <array>
+#include "LoadBalancing-cpp/inc/Client.h"
+#include "Constant.h"
+
 typedef enum _State
 {
 	STATE_INITIALIZED = 0,
@@ -65,6 +69,17 @@ public:
 	Input getLastInput(void) const;
 	void setLastInput(Input newInput);
 	State getState(void) const;
+
+    // ルームが存在するか否かを返すメソッド
+    bool isRoomExists(void);
+    // イベントを送信するメソッド
+    void sendEvent(nByte code, ExitGames::Common::Hashtable* eventContent);
+    
+    // 自分のプレイヤー番号
+    int playerNr = 0;
+    // イベントキュー
+    std::queue<std::array<float, 3>> eventQueue;
+    
 private:
 	// receive and print out debug out here
 	virtual void debugReturn(ExitGames::Common::DebugLevel::DebugLevel debugLevel, const ExitGames::Common::JString& string);

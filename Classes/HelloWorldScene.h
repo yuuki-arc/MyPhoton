@@ -2,6 +2,11 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "LoadBalancing-cpp/inc/Client.h"
+#include "NetworkLogic.h"
+#include <array>
+
+USING_NS_CC;
 
 class HelloWorld : public cocos2d::Layer
 {
@@ -17,6 +22,15 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
+    
+    bool onTouchBegan(Touch* touch, Event *event);
+
+private:
+    virtual void update(float delta);
+    
+    void addParticle(int playerNr, float x, float y);
+    
+    NetworkLogic* networkLogic;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

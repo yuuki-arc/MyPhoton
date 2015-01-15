@@ -79,7 +79,7 @@ NetworkLogic::NetworkLogic(const wchar_t* appVersion,	ExitGames::LoadBalancing::
 #	pragma warning(push)
 #	pragma warning(disable:4355)
 #endif
-	: mLoadBalancingClient(*this, L"if connecting to the exitgamescloud, replace this string with the application id, that can be found after logging in at http://exitgamescloud.com/Dashboard", appVersion, PLAYER_NAME, false, authenticationValues)
+: mLoadBalancingClient(*this, Constant::PHOTON_APPLICATION_ID, appVersion, PLAYER_NAME, false, authenticationValues)
 	, mLastInput(INPUT_NON)
 #ifdef _EG_MS_COMPILER
 #	pragma warning(pop)
@@ -109,7 +109,7 @@ void NetworkLogic::connect(void)
 	Japan: app-jp.exitgamescloud.com
 	Eastern Europe: app-eu-east.exitgamescloud.com
 	The parameterless overload defaults to app-eu.exitgamescloud.com. */
-	mLoadBalancingClient.connect(L"localhost");
+    mLoadBalancingClient.connect(L"app-jp.exitgamescloud.com");
 	mStateAccessor.setState(STATE_CONNECTING);
 }
 
@@ -228,17 +228,25 @@ void NetworkLogic::serverErrorReturn(int errorCode)
 void NetworkLogic::joinRoomEventAction(int playerNr, const ExitGames::Common::JVector<int>& /*playernrs*/, const ExitGames::LoadBalancing::Player& player)
 {
 	EGLOG(ExitGames::Common::DebugLevel::INFO, L"%ls joined the game", player.getName().cstr());
-
+}
 
 void NetworkLogic::leaveRoomEventAction(int playerNr)
 {
 	EGLOG(ExitGames::Common::DebugLevel::INFO, L"");
 }
 
-void NetworkLogic::customEventAction(int /*playerNr*/, nByte /*eventCode*/, const ExitGames::Common::Object& eventContent)
+void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGames::Common::Object& eventContent)
 {
-	// you do not receive your own events, unless you specify yourself as one of the receivers explicitly, so you must start 2 clients, to receive the events, which you have sent, as sendEvent() uses the default receivers of opRaiseEvent() (all players in same room like the sender, except the sender itself)
-	EGLOG(ExitGames::Common::DebugLevel::ALL, L"");
+    ExitGames::Common::Hashtable* event;
+    
+    switch (eventCode) {
+        case 1:
+            event = ExitGames::Common::ValueObject<ExitGames::Common::Hashtable*>(eventContent).getDataCopy();
+            float x = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
+            float y = ExitGames::Common::ValueObject<float>(event->getValue(2)).getDataCopy();
+            eventQueue.push({static_cast<float>(playerNr), x, y});
+            break;
+    }
 }
 
 void NetworkLogic::connectReturn(int errorCode, const ExitGames::Common::JString& errorString)
@@ -261,7 +269,7 @@ void NetworkLogic::disconnectReturn(void)
 
 void NetworkLogic::createRoomReturn(int localPlayerNr, const ExitGames::Common::Hashtable& /*gameProperties*/, const ExitGames::Common::Hashtable& /*playerProperties*/, int errorCode, const ExitGames::Common::JString& errorString)
 {
-	EGLOG(ExitGames::Common::DebugLevel::INFO, L"");
+    EGLOG(ExitGames::Common::DebugLevel::INFO, L"");
 	if(errorCode)
 	{
 		EGLOG(ExitGames::Common::DebugLevel::ERRORS, L"%ls", errorString.cstr());
@@ -270,11 +278,15 @@ void NetworkLogic::createRoomReturn(int localPlayerNr, const ExitGames::Common::
 	}
 	EGLOG(ExitGames::Common::DebugLevel::INFO, L"localPlayerNr: %d", localPlayerNr);
 	mStateAccessor.setState(STATE_JOINED);
+
+    
+    // ルーム内で割り当てられたプレイヤー番号を取得する
+    playerNr = localPlayerNr;
 }
 
 void NetworkLogic::joinRoomReturn(int localPlayerNr, const ExitGames::Common::Hashtable& /*gameProperties*/, const ExitGames::Common::Hashtable& /*playerProperties*/, int errorCode, const ExitGames::Common::JString& errorString)
 {
-	EGLOG(ExitGames::Common::DebugLevel::INFO, L"");
+    EGLOG(ExitGames::Common::DebugLevel::INFO, L"");
 	if(errorCode)
 	{
 		EGLOG(ExitGames::Common::DebugLevel::ERRORS, L"%ls", errorString.cstr());
@@ -283,6 +295,10 @@ void NetworkLogic::joinRoomReturn(int localPlayerNr, const ExitGames::Common::Ha
 	}
 	EGLOG(ExitGames::Common::DebugLevel::INFO, L"localPlayerNr: %d", localPlayerNr);
 	mStateAccessor.setState(STATE_JOINED);
+
+    
+    // ルーム内で割り当てられたプレイヤー番号を取得する
+    playerNr = localPlayerNr;
 }
 
 void NetworkLogic::joinRandomRoomReturn(int localPlayerNr, const ExitGames::Common::Hashtable& /*gameProperties*/, const ExitGames::Common::Hashtable& /*playerProperties*/, int errorCode, const ExitGames::Common::JString& errorString)
@@ -296,6 +312,10 @@ void NetworkLogic::joinRandomRoomReturn(int localPlayerNr, const ExitGames::Comm
 	}
 	EGLOG(ExitGames::Common::DebugLevel::INFO, L"localPlayerNr: %d", localPlayerNr);
 	mStateAccessor.setState(STATE_JOINED);
+
+    
+    // ルーム内で割り当てられたプレイヤー番号を取得する
+    playerNr = localPlayerNr;    
 }
 
 void NetworkLogic::leaveRoomReturn(int errorCode, const ExitGames::Common::JString& errorString)
@@ -318,4 +338,18 @@ void NetworkLogic::joinLobbyReturn(void)
 void NetworkLogic::leaveLobbyReturn(void)
 {
 	EGLOG(ExitGames::Common::DebugLevel::INFO, L"");
+}
+
+bool NetworkLogic::isRoomExists(void)
+{
+    if (mLoadBalancingClient.getRoomList().getIsEmpty()) {
+        return false;
+    }
+    
+    return true;
+}
+
+void NetworkLogic::sendEvent(nByte code, ExitGames::Common::Hashtable* eventContent)
+{
+    mLoadBalancingClient.opRaiseEvent(true, eventContent, 1, code);
 }

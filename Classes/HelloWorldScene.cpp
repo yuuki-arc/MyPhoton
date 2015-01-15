@@ -27,7 +27,7 @@ bool HelloWorld::init()
         return false;
     }
     
-    Size visibleSize = Director::getInstance()->getVisibleSize();
+    cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     /////////////////////////////
@@ -72,6 +72,11 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
     
+    // Photonネットワーククラスのインスタンスを作成
+    networkLogic = new NetworkLogic(L"1.0");
+    
+    scheduleUpdate();
+    
     return true;
 }
 
@@ -88,4 +93,84 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
+}
+
+bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+    if (networkLogic->playerNr) {
+        this->addParticle(networkLogic->playerNr, touch->getLocation().x, touch->getLocation().y);
+        
+        // イベント（タッチ座標）を送信
+        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+        eventContent->put<int, float>(1, touch->getLocation().x);
+        eventContent->put<int, float>(2, touch->getLocation().y);
+        networkLogic->sendEvent(1, eventContent);
+    }
+    
+    return true;
+}
+
+void HelloWorld::update(float delta)
+{
+    networkLogic->run();
+    
+    switch (networkLogic->getState()) {
+        case STATE_CONNECTED:
+        case STATE_LEFT:
+            // ルームが存在すればジョイン、なければ作成する
+            if (networkLogic->isRoomExists()) {
+                CCLOG("Join");
+                networkLogic->setLastInput(INPUT_JOIN_RANDOM_GAME);
+            } else {
+                CCLOG("Create");
+                networkLogic->setLastInput(INPUT_CREATE_GAME);
+            }
+            break;
+        case STATE_DISCONNECTED:
+            // 接続が切れたら再度接続
+            networkLogic->connect();
+            break;
+        case STATE_CONNECTING:
+        case STATE_JOINING:
+        case STATE_JOINED:
+        case STATE_LEAVING:
+        case STATE_DISCONNECTING:
+        default:
+            break;
+    }
+    
+    while (!networkLogic->eventQueue.empty()) {
+        std::array<float, 3> arr = networkLogic->eventQueue.front();
+        networkLogic->eventQueue.pop();
+        
+        int playerNr = static_cast<int>(arr[0]);
+        float x = arr[1];
+        float y = arr[2];
+        CCLOG("%d, %f, %f", playerNr, x, y);
+        
+        this->addParticle(playerNr, x, y);
+    }
+}
+
+void HelloWorld::addParticle(int playerNr, float x, float y)
+{
+    ParticleSystem* particle;
+    switch (playerNr) {
+        case 1:
+            particle = ParticleFire::create();
+            break;
+        case 2:
+            particle = ParticleSmoke::create();
+            break;
+        case 3:
+            particle = ParticleFlower::create();
+            break;
+        default:
+            particle = ParticleSun::create();
+            break;
+    }
+    particle->setDuration(0.1);
+    particle->setSpeed(500);
+    particle->setPosition(cocos2d::Point(x,y));
+    this->addChild(particle);
 }
