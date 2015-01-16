@@ -28,7 +28,7 @@ bool HelloWorld::init()
     }
     
     cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    cocos2d::Point origin = Director::getInstance()->getVisibleOrigin();
 
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
@@ -40,8 +40,8 @@ bool HelloWorld::init()
                                            "CloseSelected.png",
                                            CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
     
-	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
+    closeItem->setPosition(cocos2d::Point(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
+                                          origin.y + closeItem->getContentSize().height/2));
 
     // create menu, it's an autorelease object
     auto menu = Menu::create(closeItem, NULL);
@@ -51,17 +51,17 @@ bool HelloWorld::init()
     /////////////////////////////
     // 3. add your codes below...
 
-    // add a label shows "Hello World"
-    // create and initialize a label
-    
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-    
-    // position the label on the center of the screen
-    label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
-
-    // add the label as a child to this layer
-    this->addChild(label, 1);
+//    // add a label shows "Hello World"
+//    // create and initialize a label
+//    
+//    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
+//    
+//    // position the label on the center of the screen
+//    label->setPosition(cocos2d::Point(origin.x + visibleSize.width/2,
+//                                      origin.y + visibleSize.height - label->getContentSize().height));
+//
+//    // add the label as a child to this layer
+//    this->addChild(label, 1);
 
     // add "HelloWorld" splash screen"
     auto sprite = Sprite::create("HelloWorld.png");
@@ -79,10 +79,27 @@ bool HelloWorld::init()
     
     scheduleUpdate();
 
-    auto listener = EventListenerTouchOneByOne::create();
-    listener->setSwallowTouches(true);
-    listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
-    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+    // オブジェクト描画
+    ball = Sprite::create("icon-reflection-none-blue.png");
+    ball->setPosition( cocos2d::Point(origin.x + visibleSize.width / 2,
+                                      origin.y + visibleSize.height / 2));
+    ball->setScale(0.25, 0.25);
+    this->addChild(ball);
+    
+    // show direction
+    Label* directionLabel = Label::createWithSystemFont("direction", "arial", 24);
+    directionLabel->setPosition(cocos2d::Point(origin.x + visibleSize.width / 2,
+                                          origin.y + visibleSize.height * 4 / 5));
+    directionLabel->setTag(1);
+    this->addChild(directionLabel);
+
+    // マルチタッチモード
+//    auto listener = EventListenerTouchOneByOne::create();
+//    listener->setSwallowTouches(true);
+//    listener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
+//    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+    this->xtTouchMode(Touch::DispatchMode::ALL_AT_ONCE);
+    this->xtTouchEnabled(true);
     
     return true;
 }
@@ -102,31 +119,113 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 #endif
 }
 
-bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+//bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+//{
+//    CCLOG("onTouchBegan:%d", networkLogic->playerNr);
+//    if (networkLogic->playerNr) {
+//        this->addParticle(networkLogic->playerNr, touch->getLocation().x, touch->getLocation().y);
+//        
+//        // イベント（タッチ座標）を送信
+//        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+//        eventContent->put<int, float>(1, touch->getLocation().x);
+//        eventContent->put<int, float>(2, touch->getLocation().y);
+//        networkLogic->sendEvent(1, eventContent);
+//    }
+//    
+//    return true;
+//}
+
+void HelloWorld::xtTouchesBegan(cocos2d::Point position)
 {
-    CCLOG("onTouchBegan:%d", networkLogic->playerNr);
+    CCLOG("xtTouchesBegan x: %f, y: %f", position.x, position.y);
     if (networkLogic->playerNr) {
-        this->addParticle(networkLogic->playerNr, touch->getLocation().x, touch->getLocation().y);
+        this->addParticle(networkLogic->playerNr, position.x, position.y);
         
         // イベント（タッチ座標）を送信
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-        eventContent->put<int, float>(1, touch->getLocation().x);
-        eventContent->put<int, float>(2, touch->getLocation().y);
+        eventContent->put<int, float>(1, position.x);
+        eventContent->put<int, float>(2, position.y);
         networkLogic->sendEvent(1, eventContent);
     }
+}
+
+void HelloWorld::xtTouchesMoved(cocos2d::Point position)
+{
+    CCLOG("xtTouchesMoved x: %f, y: %f", position.x, position.y);
+}
+
+void HelloWorld::xtTouchesEnded(cocos2d::Point position)
+{
+    CCLOG("xtTouchesEnded x: %f, y: %f", position.x, position.y);
+}
+
+void HelloWorld::xtTapGesture(cocos2d::Point position)
+{
+    CCLOG("xtTapGesture x: %f, y: %f", position.x, position.y);
+}
+
+void HelloWorld::xtDoubleTapGesture(cocos2d::Point position)
+{
+    CCLOG("xtDoubleTapGesture x: %f, y: %f", position.x, position.y);
+}
+
+void HelloWorld::xtLongTapGesture(cocos2d::Point position)
+{
+    CCLOG("xtLongTapGesture x: %f, y: %f", position.x, position.y);
+}
+
+void HelloWorld::xtSwipeGesture(XTTouchDirection direction, float distance, float speed)
+{
+    std::string directionStr;
+    int directionX, directionY;
     
-    return true;
+    switch (direction) {
+        case XTLayer::UP:
+            directionStr = "UP";
+            directionX = 0;
+            directionY = 1;
+            break;
+        case XTLayer::DOWN:
+            directionStr = "DOWN";
+            directionX = 0;
+            directionY = -1;
+            break;
+        case XTLayer::LEFT:
+            directionStr = "LEFT";
+            directionX = -1;
+            directionY = 0;
+            break;
+        case XTLayer::RIGHT:
+            directionStr = "RIGHT";
+            directionX = 1;
+            directionY = 0;
+            break;
+        default:
+            break;
+    }
+    
+    float duration = 1/speed;
+    float distX = distance * directionX;
+    float distY = distance * directionY;
+    MoveBy* actionMove = MoveBy::create(duration, Vec2(distX, distY));
+    
+    ball->runAction(actionMove);
+    
+    CCLOG("xtSwipeGesture direction: %s, distance: %f, speed: %f", directionStr.c_str(), distance, speed);
+    
+    Label* label = (Label *)this->getChildByTag(1);
+    label->setString(directionStr.c_str());
 }
 
 void HelloWorld::update(float delta)
 {
     networkLogic->run();
     
-    CCLOG("schedule update: network-state:%d", networkLogic->getState());
+//    CCLOG("schedule update: network-state:%d", networkLogic->getState());
     switch (networkLogic->getState()) {
         case STATE_CONNECTED:
         case STATE_LEFT:
-            CCLOG("schedule update: CONNECTED OR LEFT");
+//            CCLOG("schedule update: CONNECTED OR LEFT");
             // ルームが存在すればジョイン、なければ作成する
             if (networkLogic->isRoomExists()) {
                 CCLOG("Join");
@@ -137,7 +236,7 @@ void HelloWorld::update(float delta)
             }
             break;
         case STATE_DISCONNECTED:
-            CCLOG("schedule update: DISCONNECTED");
+//            CCLOG("schedule update: DISCONNECTED");
             // 接続が切れたら再度接続
             networkLogic->connect();
             break;
@@ -147,7 +246,7 @@ void HelloWorld::update(float delta)
         case STATE_LEAVING:
         case STATE_DISCONNECTING:
         default:
-            CCLOG("schedule update: other");
+//            CCLOG("schedule update: other");
             break;
     }
     
