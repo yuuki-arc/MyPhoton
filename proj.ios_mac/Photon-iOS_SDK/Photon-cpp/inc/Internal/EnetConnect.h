@@ -19,13 +19,14 @@ namespace ExitGames
 			public:
 				EnetConnect(PhotonConnectListener& listener);
 				~EnetConnect(void);
+			protected:
+				virtual int recvBuffer(nByte** ppBuff, int* pBytesRead);
 			private:
 				typedef PhotonConnect super;
 
 				SOCKET socket(void);
 				unsigned short getDefaultPort(void);
 				bool checkConnection(void);
-				int recvBuffer(nByte** ppBuff, int* pBytesRead);
 			};
 		}
 	}

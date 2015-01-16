@@ -19,7 +19,11 @@ namespace ExitGames
 			{
 				namespace Player
 				{
+					/// (255) Name of a player/actor.
 					static const nByte PLAYERNAME =  255;
+					/// (254) Tells you if the player is currently in this game (getting events live).
+					/// A server-set value for async games, where players can leave the game and return later.
+					static const nByte IS_INACTIVE =  254;
 				};
 			}
 		}

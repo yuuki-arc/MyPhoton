@@ -17,11 +17,15 @@ namespace ExitGames
 
 		namespace Internal
 		{
+			class PlayerMovementInformant;
+
 			class PlayerPropertiesUpdateInformant
 			{
 				static void onUpdate(MutableRoom& room, int number, const Common::Hashtable& properties);
+				static bool setIsInactive(MutableRoom& room, int number, bool isInactive);
 
 				friend class LoadBalancing::Client;
+				friend class LoadBalancing::Internal::PlayerMovementInformant;
 			};
 		}
 	}

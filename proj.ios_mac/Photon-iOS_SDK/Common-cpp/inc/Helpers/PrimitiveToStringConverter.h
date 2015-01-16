@@ -57,6 +57,6 @@ namespace ExitGames
 				retStr += L"]";
 				return retStr;
 			}
-		}	
+		}
 	}
 }

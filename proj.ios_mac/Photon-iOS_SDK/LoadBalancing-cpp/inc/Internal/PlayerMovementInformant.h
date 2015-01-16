@@ -20,9 +20,10 @@ namespace ExitGames
 		{
 			class PlayerMovementInformant
 			{
-				template<bool isLocalPlayer> static void onEnter(MutableRoom& room, Player& player);
-				static void onEnter(MutableRoom& room, int number, const Common::Hashtable& properties);
-				template<bool isLocalPlayer> static bool onLeave(MutableRoom& room, int number);
+				static void onEnterLocal(MutableRoom& room, Player& player);
+				static void onEnterRemote(MutableRoom& room, int number, const Common::Hashtable& properties);
+				static bool onLeaveLocal(MutableRoom& room, int number);
+				static bool onLeaveRemote(MutableRoom& room, int number);
 
 				friend class LoadBalancing::Client;
 			};

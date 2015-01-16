@@ -20,7 +20,6 @@ namespace ExitGames
 			static const nByte GAMEPROPERTIES  = 248;
 			static const nByte DATA            = 245;
 		}
-
 		/** @file */
 	}
 }

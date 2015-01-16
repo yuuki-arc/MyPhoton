@@ -8,7 +8,7 @@ class iPhoneNetworkLogic: public NetworkLogic, public OutputListener, public Net
 {
 public:
 	iPhoneNetworkLogic(Console* console, AppDelegate* appDelegate)
-		: NetworkLogic(this, L"1.0")
+		: NetworkLogic(this)
 		, mConsole(console)
 		, mAppDelegate(appDelegate)
 	{
@@ -45,19 +45,19 @@ iPhoneNetworkLogic* gApp = NULL;
 - (void) createGame
 {
 	viewMasterServer.hidden = true;
-	gApp->setLastInput(INPUT_CREATE_GAME);
+	gApp->setLastInput(INPUT_1);
 }
 
 - (void) joinRandomGame
 {
 	viewMasterServer.hidden = true;
-	gApp->setLastInput(INPUT_JOIN_RANDOM_GAME);
+	gApp->setLastInput(INPUT_2);
 }
 
 - (void) leaveGame
 {
 	viewGameRoom.hidden = true;
-	gApp->setLastInput(INPUT_LEAVE_GAME);
+	gApp->setLastInput(INPUT_1);
 }
 
 - (void) run:(NSTimer*)timer

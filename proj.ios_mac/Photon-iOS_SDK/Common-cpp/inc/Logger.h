@@ -23,15 +23,15 @@ namespace ExitGames
 			void setListener(const BaseListener& listener);
 		private:
 			DebugLevel::DebugLevel mDebugLevel;
-#ifdef EG_DEBUGGER
+#ifdef EG_LOGGING
 			BaseListener* mpListener;
 #endif
 		};
 	}
 }
 
-// public debugging API
-#ifdef EG_DEBUGGER
+// public logging API
+#ifdef EG_LOGGING
 #	define EGLOG(debugLevel, ...) mLogger.log(debugLevel, __WFILE__, __WFUNCTION__, true, __LINE__, __VA_ARGS__)
 #else
 #	define EGLOG(debugLevel, ...) ((void)0)

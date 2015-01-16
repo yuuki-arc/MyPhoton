@@ -27,7 +27,7 @@
             wsprintfW(buffer, L"Cond: %S  File: %S\r\nLine: %d\r\nFunction: %S",\
                 #cond,__FILE__, __LINE__, __FUNCTION__);                        \
                                                                                 \
-            if (!(cond))                                                        \
+            if(!(cond))                                                        \
             {                                                                   \
                 MessageBoxW(NULL, buffer, L"Assertion failed", MB_OK);          \
                 TerminateProcess(GetCurrentProcess(), 0);                       \
@@ -41,7 +41,7 @@
             WCHAR buffer[512];                                                  \
             wsprintfW(buffer, L"File: %S\r\nLine: %d", __FILE__, __LINE__);     \
                                                                                 \
-            if (!(cond))                                                        \
+            if(!(cond))                                                        \
             {                                                                   \
                 MessageBoxW(NULL, buffer, L"Assertion failed", MB_OK);          \
                 TerminateProcess(GetCurrentProcess(), 0);                       \
@@ -57,7 +57,7 @@
                      "Assertion failed File: %s Line: %d Function: %s",         \
                       __FILE__, __LINE__, __FUNCTION__);                        \
                                                                                 \
-            if (!(cond))                                                        \
+            if(!(cond))                                                        \
             {                                                                   \
                 SysFatalAlert(buffer);                                          \
             }                                                                   \
@@ -70,7 +70,7 @@
 #   elif defined __linux__
 #       include <stdlib.h>
 #       define CP_ASSERT(cond)                                                  \
-        if (!(cond))                                                            \
+        if(!(cond))                                                            \
         {                                                                       \
             char buffer[512];                                                   \
             sprintf(buffer, "xmessage \'Cond: %s\nFile: %s\nLine:"              \
@@ -82,7 +82,7 @@
 #   elif defined SN_TARGET_PS3
 #       include <stdlib.h>
 #       define CP_ASSERT(cond)                                                  \
-        if (!(cond))                                                            \
+        if(!(cond))                                                            \
         {                                                                       \
             char buffer[1024];                                                  \
             sprintf(buffer, "xmessage \'Cond: %s\nFile: %s\nLine:"              \

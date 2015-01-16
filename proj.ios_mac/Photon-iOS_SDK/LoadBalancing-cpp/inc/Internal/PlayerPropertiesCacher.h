@@ -19,6 +19,7 @@ namespace ExitGames
 			class PlayerPropertiesCacher
 			{
 				static void cache(Player& player, const Common::Hashtable& properties);
+				static void setIsInactive(Player& player, bool isInactive);
 
 				friend class PlayerPropertiesUpdateInformant;
 			};

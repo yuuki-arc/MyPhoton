@@ -199,7 +199,7 @@ namespace ExitGames
 		template<typename EKeyType, typename EValueType>
 		JVector<EKeyType> Dictionary<EKeyType, EValueType>::getKeys(void) const
 		{
-			return super::getKeys();
+			return super::getKeys<EKeyType>();
 		}
 
 		/** @copydoc Hashtable::remove() */

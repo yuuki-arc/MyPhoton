@@ -39,7 +39,7 @@ namespace ExitGames
 				static const int COMMANDS_BUF_LEN = 20;
 
 				static const int PHOTON_COMMAND_HEADER_LENGTH            =                                12;
-				static const int PHOTON_COMMAND_UNRELIABLE_HEADER_LENGTH =                                 4;
+				static const int PHOTON_COMMAND_UNRELIABLE_HEADER_LENGTH = PHOTON_COMMAND_HEADER_LENGTH +  4;
 				static const int PHOTON_COMMAND_HEADER_FRAGMENT_LENGTH   = PHOTON_COMMAND_HEADER_LENGTH + 20;
 				static const int MSG_HEADER_BYTES                        =                                 2;
 				static const int TCP_HEADER_LENGTH                       =                                 7;

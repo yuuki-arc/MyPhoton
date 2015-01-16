@@ -20,11 +20,15 @@ namespace ExitGames
 
 		Player::Player(void)
 			: mNumber(-1)
+			, mIsInactive(false)
+			, mpRoom(NULL)
 		{
 		}
 
 		Player::Player(int number, const Hashtable& properties, const MutableRoom* const pRoom)
-			: mNumber(number), mpRoom(pRoom)
+			: mNumber(number)
+			, mIsInactive(false)
+			, mpRoom(pRoom)
 		{
 			cacheProperties(properties);
 		}
@@ -72,11 +76,22 @@ namespace ExitGames
 			return mCustomProperties;
 		}
 
+		bool Player::getIsInactive(void) const
+		{
+			return mIsInactive;
+		}
+
+		void Player::setIsInactive(bool isInActive)
+		{
+			mIsInactive = isInActive;
+		}
+
 		void Player::cacheProperties(const Hashtable& properties)
 		{
 			if(properties.contains(static_cast<nByte>(Properties::Player::PLAYERNAME)))
 				mName = ValueObject<JString>(properties.getValue(static_cast<nByte>(Properties::Player::PLAYERNAME))).getDataCopy();
-
+			if(properties.contains(static_cast<nByte>(Properties::Player::IS_INACTIVE)))
+				mIsInactive = ValueObject<bool>(properties.getValue(static_cast<nByte>(Properties::Player::IS_INACTIVE))).getDataCopy();
 			mCustomProperties.put(Utils::stripToCustomProperties(properties));
 			mCustomProperties = Utils::stripKeysWithNullValues(mCustomProperties);
 		}

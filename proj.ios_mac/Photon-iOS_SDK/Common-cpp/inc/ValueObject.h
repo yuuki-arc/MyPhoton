@@ -34,9 +34,7 @@ namespace ExitGames
 			ValueObject(const Object& obj);
 			ValueObject(const Object* const obj);
 			ValueObject(typename Helpers::ConfirmAllowed<Etype>::type data);
-			ValueObject(typename Helpers::ConfirmAllowed<Etype>::type const pData, short size);
-			ValueObject(nByte* pData, int size);
-			ValueObject(const nByte* pData, int size);
+			ValueObject(typename Helpers::ConfirmAllowed<Etype>::type const pData, typename Helpers::ArrayLengthType<Etype>::type size);
 			ValueObject(typename Helpers::ConfirmAllowed<Etype>::type const pData, const short* const sizes);
 			virtual ~ValueObject(void);
 
@@ -132,19 +130,9 @@ namespace ExitGames
 		   @param pData The array to copy.
 		   @param size The element count of data.                               */
 		template<typename Etype>
-		ValueObject<Etype>::ValueObject(typename Helpers::ConfirmAllowed<Etype>::type const pData, short size) : Object(pData, Helpers::ConfirmAllowed<Etype>::typeName, Helpers::ConfirmAllowed<Etype>::customTypeName, size, true)
+		ValueObject<Etype>::ValueObject(typename Helpers::ConfirmAllowed<Etype>::type const pData, typename Helpers::ArrayLengthType<Etype>::type size) : Object(pData, Helpers::ConfirmAllowed<Etype>::typeName, Helpers::ConfirmAllowed<Etype>::customTypeName, size, true)
 		{
 			COMPILE_TIME_ASSERT2_TRUE_MSG(Helpers::ConfirmAllowed<Etype>::dimensions==1, ERROR_THIS_OVERLOAD_IS_ONLY_FOR_1D_ARRAYS);
-		}
-
-		template<typename Etype>
-		ValueObject<Etype>::ValueObject(nByte* pData, int size) : Object(pData, size, true)
-		{
-		}
-
-		template<typename Etype>
-		ValueObject<Etype>::ValueObject(const nByte* pData, int size) : Object(pData, size, true)
-		{
 		}
 
 		/**

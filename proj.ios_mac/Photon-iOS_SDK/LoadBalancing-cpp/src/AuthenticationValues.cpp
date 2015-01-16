@@ -5,21 +5,24 @@
  */
 
 #include "LoadBalancing-cpp/inc/AuthenticationValues.h"
-#include "LoadBalancing-cpp/inc/Internal/Enums/CustomAuthenticationType.h"
 
-/** @file AuthenticationValues.h */
+/** @file LoadBalancing-cpp/inc/AuthenticationValues.h */
 
 namespace ExitGames
 {
 	namespace LoadBalancing
 	{
 		using namespace Common;
-		using namespace Internal;
 
-
+		AuthenticationValues::AuthenticationValues(nByte type, const Common::JString& parameters, const Common::JVector<nByte>& data)
+			: mType(type)
+			, mParameters(parameters)
+			, mData(data)
+		{
+		}
 
 		AuthenticationValues::AuthenticationValues(const JVector<nByte>& data)
-			: mType(data.getSize()?CustomAuthenticationType::CUSTOM:CustomAuthenticationType::NONE)
+			: mType(CustomAuthenticationType::CUSTOM)
 			, mData(data)
 		{
 		}
@@ -29,6 +32,14 @@ namespace ExitGames
 			, mParameters(JString(L"username=")+username+"&token="+token)
 			, mData(data)
 		{
+		}
+
+		AuthenticationValues::AuthenticationValues(const Common::JString& parameters, const Common::JVector<nByte>& data)
+			: mType(CustomAuthenticationType::CUSTOM)
+			, mParameters(parameters)
+			, mData(data)
+		{
+
 		}
 
 		nByte AuthenticationValues::getType(void) const

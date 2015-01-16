@@ -17,10 +17,10 @@ namespace ExitGames
 		{
 		}
 
-		MutableRoom* MutableRoomFactory::create(const Common::JString& name, const Common::Hashtable& properties, Peer* pPeer, const Common::JVector<Common::JString>& propsListedInLobby)
+		MutableRoom* MutableRoomFactory::create(const Common::JString& name, const Common::Hashtable& properties, Client* pClient, const Common::JVector<Common::JString>& propsListedInLobby, int playerTtl, int roomTtl)
 		{
 			MutableRoom* p;
-			return ALLOCATE(MutableRoom, p, name, properties, pPeer, propsListedInLobby);
+			return ALLOCATE(MutableRoom, p, name, properties, pClient, propsListedInLobby, playerTtl, roomTtl);
 		}
 
 		void MutableRoomFactory::destroy(const MutableRoom* pRoom)

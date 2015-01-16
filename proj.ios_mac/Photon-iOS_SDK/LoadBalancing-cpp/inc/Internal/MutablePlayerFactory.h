@@ -22,7 +22,7 @@ namespace ExitGames
 		protected:
 			virtual ~MutablePlayerFactory(void);
 
-			virtual MutablePlayer* create(int number, const Common::Hashtable& properties, const MutableRoom* const pRoom, Peer* pPeer);
+			virtual MutablePlayer* create(int number, const Common::Hashtable& properties, const MutableRoom* const pRoom, Client* pClient);
 			virtual void destroy(const MutablePlayer* pPlayer);
 		private:
 			friend class LoadBalancing::Client;

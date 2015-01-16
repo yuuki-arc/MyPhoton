@@ -26,7 +26,7 @@ namespace ExitGames
 			int getNumber(void) const;
 			const Common::JString& getName() const;
 			const Common::Hashtable& getCustomProperties() const;
-
+			bool getIsInactive(void) const;
 			bool operator==(const Player& player) const;
 			virtual Common::JString& toString(Common::JString& retStr, bool withTypes=false) const;
 			virtual Common::JString toString(bool withTypes, bool withCustomProperties) const;
@@ -36,6 +36,7 @@ namespace ExitGames
 			virtual bool getIsMutable(void) const;
 
 			virtual Player& assign(const Player& toCopy);
+			virtual void setIsInactive(bool);
 			virtual void cacheProperties(const Common::Hashtable& properties);
 			virtual Common::JString payloadToString(bool withTypes, bool withCustomProperties=false) const;
 
@@ -43,6 +44,7 @@ namespace ExitGames
 			Common::JString mName;
 			Common::Hashtable mCustomProperties;
 			const MutableRoom* mpRoom;
+			bool mIsInactive;
 		private:
 			Player(void);
 

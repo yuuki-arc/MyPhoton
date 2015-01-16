@@ -15,11 +15,12 @@ namespace ExitGames
 			class ProtocolHeader
 			{
 			public:
-				short peerID;
-				nByte flags;
-				nByte commandCount;
-				int   sentTime;
-				int   challenge;
+				short mPeerID;
+				nByte mFlags;
+				nByte mCommandCount;
+				int   mSentTime;
+				int   mChallenge;
+				unsigned int mCRC;
 			};
 		}
 	}

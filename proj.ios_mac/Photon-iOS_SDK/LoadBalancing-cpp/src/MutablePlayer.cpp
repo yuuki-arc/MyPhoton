@@ -4,6 +4,7 @@
  * mailto:developer@exitgames.com
  */
 
+#include "LoadBalancing-cpp/inc/Client.h"
 #include "LoadBalancing-cpp/inc/MutablePlayer.h"
 #include "LoadBalancing-cpp/inc/MutableRoom.h"
 #include "LoadBalancing-cpp/inc/Internal/Utils.h"
@@ -18,9 +19,9 @@ namespace ExitGames
 		using namespace Common;
 		using namespace Internal;
 
-		MutablePlayer::MutablePlayer(int number, const Hashtable& properties, const MutableRoom* const pRoom, Peer* pPeer)
+		MutablePlayer::MutablePlayer(int number, const Hashtable& properties, const MutableRoom* const pRoom, Client* pClient)
 			: Player(number, properties, pRoom)
-			, mLoadBalancingPeer(pPeer)
+			, mLoadBalancingClient(pClient)
 		{
 		}
 
@@ -48,7 +49,7 @@ namespace ExitGames
 			super::assign(toCopy);
 			const MutablePlayer& temp = static_cast<const MutablePlayer&>(toCopy);
 			if(temp.getIsMutable())
-				mLoadBalancingPeer = temp.mLoadBalancingPeer;
+				mLoadBalancingClient = temp.mLoadBalancingClient;
 			return *this;
 		}
 
@@ -61,7 +62,7 @@ namespace ExitGames
 			mCustomProperties.put(stripDict);
 			mCustomProperties = Utils::stripKeysWithNullValues(mCustomProperties);
 			if(mCustomProperties != oldDict)
-				mLoadBalancingPeer->opSetPropertiesOfPlayer(mNumber, stripDict);
+				mLoadBalancingClient->opSetPropertiesOfPlayer(mNumber, stripDict);
 		}
 
 		void MutablePlayer::addCustomProperties(const Hashtable& customProperties)
@@ -75,7 +76,7 @@ namespace ExitGames
 			{
 				Hashtable properties;
 				properties.put(static_cast<nByte>(Properties::Player::PLAYERNAME), mName=name);
-				mLoadBalancingPeer->opSetPropertiesOfPlayer(mNumber, properties);
+				mLoadBalancingClient->opSetPropertiesOfPlayer(mNumber, properties);
 			}
 		}
 

@@ -6,7 +6,6 @@
 
 #pragma once
 
-#include "LoadBalancing-cpp/inc/Peer.h"
 #include "LoadBalancing-cpp/inc/Player.h"
 #include "LoadBalancing-cpp/inc/Internal/MutablePlayerFactory.h"
 
@@ -31,7 +30,7 @@ namespace ExitGames
 			template<typename ktype> void removeCustomProperty(const ktype& key);
 			template<typename ktype> void removeCustomProperties(const ktype* const keys, unsigned int count);
 		protected:
-			MutablePlayer(int number, const Common::Hashtable& properties, const MutableRoom* const pRoom, Peer* pPeer);
+			MutablePlayer(int number, const Common::Hashtable& properties, const MutableRoom* const pRoom, Client* pClient);
 
 			virtual bool getIsMutable(void) const;
 
@@ -39,7 +38,7 @@ namespace ExitGames
 		private:
 			typedef Player super;
 
-			Peer* mLoadBalancingPeer;
+			Client* mLoadBalancingClient;
 
 			friend class MutablePlayerFactory;
 		};

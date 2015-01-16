@@ -20,7 +20,7 @@ namespace ExitGames
 			{
 			public:
 				EnetCommand(EnetPeer* const pEnetPeer, nByte cType, const nByte* const payload, int payloadSize);
-				EnetCommand(EnetPeer* const pEnetPeer, nByte* pBuffer, unsigned int bufferSize, int* nRead, int sentTime);
+				EnetCommand(EnetPeer* const pEnetPeer, nByte* pBuffer, unsigned int bufferSize, int* pRead, int sentTime);
 				~EnetCommand(void);
 
 				EnetCommand(const EnetCommand& toCopy);
@@ -41,6 +41,7 @@ namespace ExitGames
 
 				nByte mCommandFlags;
 				nByte mCommandType;
+				unsigned int mCommandLength;
 
 				//variables from CommandHeader
 				nByte mCommandChannelID;

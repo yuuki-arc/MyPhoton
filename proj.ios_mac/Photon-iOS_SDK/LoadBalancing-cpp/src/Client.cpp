@@ -5,10 +5,11 @@
  */
 
 #include "LoadBalancing-cpp/inc/Client.h"
+#include "LoadBalancing-cpp/inc/Enums/CustomAuthenticationType.h"
+#include "LoadBalancing-cpp/inc/Enums/DisconnectCause.h"
 #include "LoadBalancing-cpp/inc/Internal/AuthenticationValuesSecretSetter.h"
 #include "LoadBalancing-cpp/inc/Internal/PlayerMovementInformant.h"
 #include "LoadBalancing-cpp/inc/Internal/Utils.h"
-#include "LoadBalancing-cpp/inc/Internal/Enums/CustomAuthenticationType.h"
 #include "LoadBalancing-cpp/inc/Internal/Enums/EventCode.h"
 #include "LoadBalancing-cpp/inc/Internal/Enums/JoinType.h"
 #include "LoadBalancing-cpp/inc/Internal/Enums/OperationCode.h"
@@ -16,7 +17,7 @@
 #include "LoadBalancing-cpp/inc/Internal/Enums/Properties/Player.h"
 #include "LoadBalancing-cpp/inc/Internal/Enums/Properties/Room.h"
 
-/** @file Client.h */
+/** @file LoadBalancing-cpp/inc/Client.h */
 
 namespace ExitGames
 {
@@ -28,10 +29,184 @@ namespace ExitGames
 		using namespace Photon::StatusCode;
 		using namespace Internal;
 
-		// default master server address and port
-		const EG_CHAR* const MASTERSERVER = L"app-eu.exitgamescloud.com";
+		const JString Client::NAMESERVER = L"ns.exitgamescloud.com"; // default name server address
 		
 		const bool SEND_AUTHENTICATE_ENCRYPTED = true;
+
+		int Client::getServerTimeOffset(void) const
+		{
+			return mPeer.getServerTimeOffset();
+		}
+
+		int Client::getServerTime(void) const
+		{
+			return mPeer.getServerTime();
+		}
+
+		int Client::getBytesOut(void) const
+		{
+			return mPeer.getBytesOut();
+		}
+
+		int Client::getBytesIn(void) const
+		{
+			return mPeer.getBytesIn();
+		}
+
+		int Client::getByteCountCurrentDispatch(void) const
+		{
+			return mPeer.getByteCountCurrentDispatch();
+		}
+
+		int Client::getByteCountLastOperation(void) const
+		{
+			return mPeer.getByteCountLastOperation();
+		}
+
+		int Client::getSentCountAllowance(void) const
+		{
+			return mPeer.getSentCountAllowance();
+		}
+
+		void Client::setSentCountAllowance(int setSentCountAllowance)
+		{
+			mPeer.setSentCountAllowance(setSentCountAllowance);
+		}
+
+		int Client::getTimePingInterval(void) const
+		{
+			return mPeer.getTimePingInterval();
+		}
+
+		void Client::setTimePingInterval(int setTimePingInterval)
+		{
+			mPeer.setTimePingInterval(setTimePingInterval);
+		}
+
+		int Client::getRoundTripTime(void) const
+		{
+			return mPeer.getRoundTripTime();
+		}
+
+		int Client::getRoundTripTimeVariance(void) const
+		{
+			return mPeer.getRoundTripTimeVariance();
+		}
+
+		int Client::getTimestampOfLastSocketReceive(void) const
+		{
+			return mPeer.getTimestampOfLastSocketReceive();
+		}
+
+		Common::DebugLevel::DebugLevel Client::getDebugOutputLevel(void) const
+		{
+			return mPeer.getDebugOutputLevel();
+		}
+
+		bool Client::setDebugOutputLevel(Common::DebugLevel::DebugLevel debugLevel)
+		{
+			return mLogger.setDebugOutputLevel(debugLevel) && mPeer.setDebugOutputLevel(debugLevel);
+		}
+
+		int Client::getIncomingReliableCommandsCount(void) const
+		{
+			return mPeer.getIncomingReliableCommandsCount();
+		}
+
+		short Client::getPeerId(void) const
+		{
+			return mPeer.getPeerId();
+		}
+
+		int Client::getDisconnectTimeout(void) const
+		{
+			return mPeer.getDisconnectTimeout();
+		}
+
+		void Client::setDisconnectTimeout(int disconnectTimeout)
+		{
+			mPeer.setDisconnectTimeout(disconnectTimeout);
+		}
+
+		int Client::getQueuedIncomingCommands(void) const
+		{
+			return mPeer.getQueuedIncomingCommands();
+		}
+
+		int Client::getQueuedOutgoingCommands(void) const
+		{
+			return mPeer.getQueuedOutgoingCommands();
+		}
+
+		bool Client::getIsEncryptionAvailable(void) const
+		{
+			return mPeer.getIsEncryptionAvailable();
+		}
+
+		int Client::getResentReliableCommands(void) const
+		{
+			return mPeer.getResentReliableCommands();
+		}
+
+		int Client::getLimitOfUnreliableCommands(void) const
+		{
+			return mPeer.getLimitOfUnreliableCommands();
+		}
+
+		void Client::setLimitOfUnreliableCommands(int value)
+		{
+			mPeer.setLimitOfUnreliableCommands(value);
+		}
+
+		void Client::setCrcEnabled(bool crcEnabled)
+		{
+			mPeer.setCrcEnabled(crcEnabled);
+		}
+
+		bool Client::getCrcEnabled(void) const
+		{
+			return mPeer.getCrcEnabled();
+		}
+
+		int Client::getPacketLossByCrc(void) const
+		{
+			return mPeer.getPacketLossByCrc();
+		}
+
+		void Client::setTrafficStatsEnabled(bool trafficStatsEnabled)
+		{
+			mPeer.setTrafficStatsEnabled(trafficStatsEnabled);
+		}
+
+		bool Client::getTrafficStatsEnabled(void) const
+		{
+			return mPeer.getTrafficStatsEnabled();
+		}
+
+		int Client::getTrafficStatsElapsedMs(void) const
+		{
+			return mPeer.getTrafficStatsElapsedMs();
+		}
+
+		const Photon::TrafficStats& Client::getTrafficStatsIncoming(void) const
+		{
+			return mPeer.getTrafficStatsIncoming();
+		}
+
+		const Photon::TrafficStats& Client::getTrafficStatsOutgoing(void) const
+		{
+			return mPeer.getTrafficStatsOutgoing();
+		}
+
+		const Photon::TrafficStatsGameLevel& Client::getTrafficStatsGameLevel(void) const
+		{
+			return mPeer.getTrafficStatsGameLevel();
+		}
+
+		short Client::getPeerCount(void)
+		{
+			return Peer::getPeerCount();
+		}
 
 		PeerStates::PeerStates Client::getState(void) const
 		{
@@ -61,7 +236,7 @@ namespace ExitGames
 		MutableRoom& Client::getCurrentlyJoinedRoom(void)
 		{
 			if(!mpCurrentlyJoinedRoom)
-				mpCurrentlyJoinedRoom = createMutableRoom(L"", Hashtable()); 
+				mpCurrentlyJoinedRoom = createMutableRoom(L"", Hashtable(), Common::JVector<Common::JString>(), 0, 0); 
 			return *mpCurrentlyJoinedRoom;
 		}
 
@@ -117,12 +292,26 @@ namespace ExitGames
 			return mIsFetchingFriendList||!mFriendListTimestamp ? 0 : GETTIMEMS()-mFriendListTimestamp;
 		}
 
-		Client::Client(Listener& listener, const JString& applicationID, const JString& appVersion, const JString& username, bool useTcp, AuthenticationValues authenticationValues)
+		/**
+			Summarizes (aggregates) the different causes for disconnects of a client.
+			A disconnect can be caused by: errors in the network connection or some vital operation failing
+			(which is considered "high level"). While operations always trigger a call to OnOperationResponse,
+			connection related changes are treated in OnStatusChanged.
+			The DisconnectCause is set in either case and summarizes the causes for any disconnect in a single
+			state value which can be used to display (or debug) the cause for disconnection.
+		*/
+		int Client::getDisconnectedCause(void)
+		{
+			return mDisconnectedCause;
+		}
+
+		Client::Client(Listener& listener, const JString& applicationID, const JString& appVersion, const JString& username, nByte connectionProtocol, AuthenticationValues authenticationValues, bool autoLobbyStats, bool useDefaultRegion)
+
 #if defined _EG_MS_COMPILER
 #	pragma warning(push)
 #	pragma warning(disable:4355)
 #endif
-			: Peer(*this, useTcp)
+			: mPeer(*this, connectionProtocol)
 			, mListener(listener)
 			, mAppVersion(appVersion)
 			, mAppID(applicationID)
@@ -131,19 +320,25 @@ namespace ExitGames
 			, mMasterPeerCount(0)
 			, mLastJoinType(0)
 			, mLastLobbyJoinType(0)
+			, mLastJoinCreateIfNotExists(false)
+			, mLastJoinPlayerNumber(0)
+			, mLastCacheSliceIndex(0)
 			, mpCurrentlyJoinedRoom(NULL)
-			, mSenttime(0)
 			, mCachedErrorCodeFromGameServer(ErrorCode::OK)
-			, mUseTcp(useTcp)
 			, mAutoJoinLobby(true)
 			, mpLocalPlayer(NULL)
 			, mIsFetchingFriendList(false)
 			, mState(PeerStates::Uninitialized)
 			, mAuthenticationValues(authenticationValues)
+			, mAutoLobbyStats(autoLobbyStats)
+			, mDisconnectedCause(DisconnectCause::NONE)
+			, M_USE_DEFAULT_REGION(useDefaultRegion)
+			, M_CONNECTION_PROTOCOL(connectionProtocol)
 #ifdef _EG_MS_COMPILER
 #	pragma warning(pop)
 #endif
 		{
+			mLogger.setListener(*this);
 			getLocalPlayer().setName(username);
 		}
 
@@ -155,24 +350,76 @@ namespace ExitGames
 				destroyRoom(mRoomList[i]);
 		}
 
-		bool Client::connect(void)
+		bool Client::connect(const JString& serverAddress, nByte serverType)
 		{
-			return connect(MASTERSERVER);
-		}
-
-		bool Client::connect(const JString& masterServerAddress)
-		{
-			mState = PeerStates::Connecting;
-			return super::connect(mMasterserver=masterServerAddress);
+			AuthenticationValuesSecretSetter::setSecret(mAuthenticationValues, L""); //reset secret
+			mState = serverType==ServerType::NAME_SERVER?PeerStates::ConnectingToNameserver:PeerStates::Connecting;
+			static const int NAMESERVER_PORT_GAP = 3;
+			return mPeer.connect(serverAddress + (serverAddress.indexOf(L':') == -1?JString(L":")+((M_CONNECTION_PROTOCOL==ConnectionProtocol::UDP?NetworkPort::UDP:NetworkPort::TCP)+(serverType==ServerType::NAME_SERVER?NAMESERVER_PORT_GAP:0)):JString()));
 		}
 
 		void Client::disconnect(void)
 		{
 			mState = PeerStates::Disconnecting;
-			super::disconnect();
+			mPeer.disconnect();
 		}
 
-		bool Client::opJoinLobby(void)
+		void Client::service(bool dispatchIncomingCommands)
+		{
+			mPeer.service(dispatchIncomingCommands);
+		}
+
+		void Client::serviceBasic(void)
+		{
+			mPeer.serviceBasic();
+		}
+
+		bool Client::opCustom(const Photon::OperationRequest& operationRequest, bool sendReliable, nByte channelID, bool encrypt)
+		{
+			return mPeer.opCustom(operationRequest, sendReliable, channelID, encrypt);
+		}
+
+		bool Client::sendOutgoingCommands(void)
+		{
+			return mPeer.sendOutgoingCommands();
+		}
+
+		bool Client::sendAcksOnly(void)
+		{
+			return mPeer.sendAcksOnly();
+		}
+
+		bool Client::dispatchIncomingCommands(void)
+		{
+			return mPeer.dispatchIncomingCommands();
+		}
+
+		bool Client::establishEncryption(void)
+		{
+			return mPeer.establishEncryption();
+		}
+
+		void Client::fetchServerTimestamp(void)
+		{
+			mPeer.fetchServerTimestamp();
+		}
+
+		void Client::resetTrafficStats(void)
+		{
+			mPeer.resetTrafficStats();
+		}
+
+		void Client::resetTrafficStatsMaximumCounters(void)
+		{
+			mPeer.resetTrafficStatsMaximumCounters();
+		}
+
+		Common::JString Client::vitalStatsToString(bool all) const
+		{
+			return mPeer.vitalStatsToString(all);
+		}
+
+		bool Client::opJoinLobby(const JString& lobbyName, nByte lobbyType)
 		{
 			if(getIsInRoom())
 			{
@@ -181,7 +428,8 @@ namespace ExitGames
 			}
 
 			mLastLobbyJoinType = JoinType::EXPLICIT_JOIN_LOBBY;
-			return opCustom(OperationRequest(OperationCode::JOIN_LOBBY), true);
+
+			return mPeer.opJoinLobby(lobbyName, lobbyType);
 		}
 
 		bool Client::opLeaveLobby(void)
@@ -195,7 +443,7 @@ namespace ExitGames
 			return opCustom(OperationRequest(OperationCode::LEAVE_LOBBY), true);
 		}
 
-		bool Client::opCreateRoom(const JString& gameID, bool isVisible, bool isOpen, nByte maxPlayers, const Hashtable& customRoomProperties, const JVector<JString>& propsListedInLobby)
+		bool Client::opCreateRoom(const JString& gameID, bool isVisible, bool isOpen, nByte maxPlayers, const Hashtable& customRoomProperties, const JVector<JString>& propsListedInLobby, const Common::JString& lobbyName, nByte lobbyType, int playerTtl, int emptyRoomTtl)
 		{
 			if(getIsInGameRoom())
 			{
@@ -205,7 +453,7 @@ namespace ExitGames
 
 			mRoomName = gameID;
 
-			OperationRequestParameters op(opCreateRoomImplementation(gameID, isVisible, isOpen, maxPlayers, getIsOnGameServer()?customRoomProperties:Hashtable(), getIsOnGameServer()?getLocalPlayer().getCustomProperties():Hashtable(), getIsOnGameServer()?propsListedInLobby:JVector<JString>()));
+			OperationRequestParameters op(mPeer.opCreateRoomImplementation(gameID, isVisible, isOpen, maxPlayers, getIsOnGameServer()?customRoomProperties:Hashtable(), getIsOnGameServer()?getLocalPlayer().getCustomProperties():Hashtable(), getIsOnGameServer()?propsListedInLobby:JVector<JString>(), lobbyName, lobbyType, playerTtl, emptyRoomTtl));
 			if(getLocalPlayer().getName().length())
 			{
 				if((ValueObject<Hashtable>*)op.getValue(static_cast<nByte>(ParameterCode::PLAYER_PROPERTIES)))
@@ -231,13 +479,13 @@ namespace ExitGames
 			roomProps.put(static_cast<nByte>(Properties::Room::PROPS_LISTED_IN_LOBBY), propsListedInLobbyArr, propsListedInLobby.getSize());
 			deallocateArray(propsListedInLobbyArr);
 
-			MutableRoom* pOldRoom = mpCurrentlyJoinedRoom;
-			mpCurrentlyJoinedRoom = createMutableRoom(gameID, roomProps,  propsListedInLobby);
-			destroyMutableRoom(pOldRoom);
+			MutableRoom* oldRoom = mpCurrentlyJoinedRoom;
+			mpCurrentlyJoinedRoom = createMutableRoom(gameID, roomProps,  propsListedInLobby, playerTtl, emptyRoomTtl);
+			destroyMutableRoom(oldRoom);
 			return true;
 		}
 
-		bool Client::opJoinRoom(const JString& gameID)
+		bool Client::opJoinRoom(const JString& gameID, bool createIfNotExists, int playerNumber, int cacheSliceIndex, int playerTtl, int emptyRoomTtl)
 		{
 			if(getIsInGameRoom())
 			{
@@ -245,8 +493,12 @@ namespace ExitGames
 				return false;
 			}
 
+			// TODO:
+			if(playerNumber) // (workaround for some server issue we will fix)
+				createIfNotExists = true;
+
 			mRoomName = gameID;
-			OperationRequestParameters op = opJoinRoomImplementation(gameID, getIsOnGameServer()?getLocalPlayer().getCustomProperties():Hashtable());
+			OperationRequestParameters op = mPeer.opJoinRoomImplementation(gameID, getIsOnGameServer()?getLocalPlayer().getCustomProperties():Hashtable(), createIfNotExists, playerNumber, getIsOnGameServer()?cacheSliceIndex:0, playerTtl, emptyRoomTtl);
 			if(getLocalPlayer().getName().length())
 			{
 				if((ValueObject<Hashtable>*)op.getValue(static_cast<nByte>(ParameterCode::PLAYER_PROPERTIES)))
@@ -258,15 +510,20 @@ namespace ExitGames
 					op.put(static_cast<nByte>(ParameterCode::PLAYER_PROPERTIES), ValueObject<Hashtable>(playerProp));
 				}
 			}
+
 			if(!gameID.length() || !opCustom(OperationRequest(OperationCode::JOIN_ROOM, op), true))
 				return false;
 
-			destroyMutableRoom(mpCurrentlyJoinedRoom);
-			mpCurrentlyJoinedRoom = createMutableRoom(gameID, Hashtable());
+			MutableRoom* oldRoom = mpCurrentlyJoinedRoom;
+			mpCurrentlyJoinedRoom = createMutableRoom(gameID, Hashtable(), JVector<JString>(), playerTtl, emptyRoomTtl);
+			destroyMutableRoom(oldRoom);
+			mLastJoinCreateIfNotExists = createIfNotExists;
+			mLastJoinPlayerNumber = playerNumber;
+			mLastCacheSliceIndex = cacheSliceIndex;
 			return true;
 		}
 
-		bool Client::opJoinRandomRoom(const Hashtable& customRoomProperties, nByte maxPlayers)
+		bool Client::opJoinRandomRoom(const Hashtable& customRoomProperties, nByte maxPlayers, nByte matchmakingMode, const JString& lobbyName, nByte lobbyType, const JString& sqlLobbyFilter)
 		{
 			if(getIsInGameRoom())
 			{
@@ -274,26 +531,33 @@ namespace ExitGames
 				return false;
 			}
 			
-			if(!super::opJoinRandomRoom(customRoomProperties, maxPlayers))
+			if(!mPeer.opJoinRandomRoom(customRoomProperties, maxPlayers, matchmakingMode, lobbyName, lobbyType, sqlLobbyFilter))
 				return false;
 
-			destroyMutableRoom(mpCurrentlyJoinedRoom);
-			mpCurrentlyJoinedRoom = createMutableRoom(L"", Utils::stripToCustomProperties(customRoomProperties));
+			MutableRoom* oldRoom = mpCurrentlyJoinedRoom;
+			mpCurrentlyJoinedRoom = createMutableRoom(L"", Utils::stripToCustomProperties(customRoomProperties), Common::JVector<Common::JString>(), 0, 0);
+			destroyMutableRoom(oldRoom);
 			return true;
 		}
 
-		bool Client::opLeaveRoom(void)
+		bool Client::opLeaveRoom(bool willComeBack)
 		{
 			if(!getIsInGameRoom())
 			{
 				EGLOG(DebugLevel::ERRORS, L"no gameroom is currently joined");
 				return false;
 			}
-
-			if(!super::opLeaveRoom())
-				return false;
-
-			mState = PeerStates::Leaving;
+			if(willComeBack)
+			{
+				mState = PeerStates::DisconnectingFromGameserver;
+				mPeer.disconnect();
+			}
+			else
+			{
+				if(!mPeer.opLeaveRoom())
+					return false;
+				mState = PeerStates::Leaving;
+			}
 			return true;
 		}
 		
@@ -301,19 +565,56 @@ namespace ExitGames
 		{
 			if(getIsOnGameServer() || mIsFetchingFriendList)
 				return false;
-			mFriendList.removeAllElements();
+			mLastFindFriendsRequest.removeAllElements();
 			for(short i=0; i<numFriendsToFind; ++i)
-				mFriendList.addElement(friendsToFind[i]);
-			return mIsFetchingFriendList = super::opFindFriends(friendsToFind, numFriendsToFind);
+				mLastFindFriendsRequest.addElement(friendsToFind[i]);
+			return mIsFetchingFriendList = mPeer.opFindFriends(friendsToFind, numFriendsToFind);
 		}
 
+		bool Client::opLobbyStats(const Common::JVector<LoadBalancing::LobbyStats>& lobbiesToQuery)
+		{
+			if(!getIsInLobby())
+			{
+				EGLOG(DebugLevel::ERRORS, L"lobby isn't currently joined");
+				return false;
+			}
+			mLobbyStatsList = lobbiesToQuery;
+			return mPeer.opLobbyStats(lobbiesToQuery);
+		}
 
+		bool Client::opCustomAuthenticationSendNextStepData(const AuthenticationValues& authenticationValues)
+		{
+			if(mState != PeerStates::WaitingForCustomAuthenticationNextStepCall)
+				return false;
+			mState = PeerStates::ConnectedToNameserver;
+			return mPeer.opAuthenticate(mAppID, mAppVersion, SEND_AUTHENTICATE_ENCRYPTED, getLocalPlayer().getName(), authenticationValues, mAutoLobbyStats, mSelectedRegion);
+		}
+
+		bool Client::selectRegion(const JString& selectedRegion)
+		{
+			if(M_USE_DEFAULT_REGION)
+			{
+				EGLOG(DebugLevel::ERRORS, L"this function should only be called, when you have explicitly specified in the constructor not to use the default region.");
+				return false;
+			}
+			else
+				return mPeer.opAuthenticate(mAppID, mAppVersion, SEND_AUTHENTICATE_ENCRYPTED, getLocalPlayer().getName(), mAuthenticationValues, mAutoLobbyStats, mSelectedRegion=selectedRegion);
+		}
 
 		// protocol implementations
 
 		void Client::onOperationResponse(const OperationResponse& operationResponse)
 		{
 			EGLOG(operationResponse.getReturnCode()?DebugLevel::ERRORS:DebugLevel::INFO, operationResponse.toString(true));
+
+			// Use the secret whenever we get it, no matter the operation code.
+			if(operationResponse.getParameters().contains(ParameterCode::SECRET) && mAuthenticationValues.getType() != CustomAuthenticationType::NONE)
+			{
+				AuthenticationValuesSecretSetter::setSecret(mAuthenticationValues, ValueObject<JString>(operationResponse.getParameterForCode(ParameterCode::SECRET)).getDataCopy());
+				EGLOG(DebugLevel::INFO, L"Server returned secret");
+				mListener.onSecretReceival(mAuthenticationValues.getSecret());
+			}
+
 			switch(operationResponse.getOperationCode())
 			{
 			case OperationCode::AUTHENTICATE:
@@ -322,19 +623,49 @@ namespace ExitGames
 					if(operationResponse.getReturnCode())
 					{
 						EGLOG(DebugLevel::ERRORS, L"authentication failed with errorcode %d: %ls", operationResponse.getReturnCode(), operationResponse.getDebugMessage().cstr());
+						
+						switch(operationResponse.getReturnCode())
+						{
+						case ErrorCode::INVALID_AUTHENTICATION:
+							mDisconnectedCause = DisconnectCause::INVALID_AUTHENTICATION;
+							break;
+						case ErrorCode::CUSTOM_AUTHENTICATION_FAILED:
+							mDisconnectedCause = DisconnectCause::CUSTOM_AUTHENTICATION_FAILED;
+							break;
+						case ErrorCode::INVALID_REGION:
+							mDisconnectedCause = DisconnectCause::INVALID_REGION;
+							break;
+						case ErrorCode::MAX_CCU_REACHED:
+							mDisconnectedCause = DisconnectCause::MAX_CCU_REACHED;
+							break;
+						case ErrorCode::OPERATION_DENIED:
+							mDisconnectedCause = DisconnectCause::OPERATION_NOT_ALLOWED_IN_CURRENT_STATE;
+							break;
+						}
+
 						handleConnectionFlowError(oldState, operationResponse.getReturnCode(), operationResponse.getDebugMessage());
 						break;
 					}
 					else
 					{
-						if(mState == PeerStates::Connected || mState == PeerStates::ConnectedComingFromGameserver)
+						if(mState == PeerStates::ConnectedToNameserver)
+						{
+							if(operationResponse.getParameters().contains(ParameterCode::DATA))
+							{
+								mState = PeerStates::WaitingForCustomAuthenticationNextStepCall;
+								mListener.onCustomAuthenticationIntermediateStep(*ValueObject<Dictionary<JString, Object> >(operationResponse.getParameterForCode(ParameterCode::DATA)).getDataAddress());
+								break;
+							}
+							else
+							{
+								mState = PeerStates::DisconnectingFromNameserver;
+								mMasterserver = ValueObject<JString>(operationResponse.getParameterForCode(ParameterCode::ADDRESS)).getDataCopy();
+								mPeer.disconnect();
+							}
+						}
+						else if(mState == PeerStates::Connected || mState == PeerStates::ConnectedComingFromGameserver)
 						{
 							mState = mState==PeerStates::Connected?PeerStates::Authenticated:PeerStates::AuthenticatedComingFromGameserver;
-							if(ValueObject<JString>(operationResponse.getParameterForCode(ParameterCode::SECRET)).getDataCopy() && mAuthenticationValues.getType() != CustomAuthenticationType::NONE)
-							{
-								AuthenticationValuesSecretSetter::setSecret(mAuthenticationValues, ValueObject<JString>(operationResponse.getParameterForCode(ParameterCode::SECRET)).getDataCopy());
-								EGLOG(DebugLevel::INFO, L"Server returned secret: %ls.", mAuthenticationValues.getSecret().cstr());
-							}
 							if(mAutoJoinLobby)
 							{
 								opJoinLobby();
@@ -345,16 +676,17 @@ namespace ExitGames
 						}
 						else if(mState == PeerStates::ConnectedToGameserver)
 						{
-							AuthenticationValuesSecretSetter::setSecret(mAuthenticationValues, L""); //reset secret
 							mState = PeerStates::Joining;
 							if(mLastJoinType == JoinType::CREATE_ROOM)
-								opCreateRoom(mRoomName, mpCurrentlyJoinedRoom->getIsVisible(), mpCurrentlyJoinedRoom->getIsOpen(), mpCurrentlyJoinedRoom->getMaxPlayers(), mpCurrentlyJoinedRoom->getCustomProperties(), mpCurrentlyJoinedRoom->getPropsListedInLobby());
-							else
+								opCreateRoom(mRoomName, mpCurrentlyJoinedRoom->getIsVisible(), mpCurrentlyJoinedRoom->getIsOpen(), mpCurrentlyJoinedRoom->getMaxPlayers(), mpCurrentlyJoinedRoom->getCustomProperties(), mpCurrentlyJoinedRoom->getPropsListedInLobby(), 
+									Common::JString(), LobbyType::DEFAULT, mpCurrentlyJoinedRoom->getPlayerTtl(), mpCurrentlyJoinedRoom->getRoomTtl()); // lobbyName and lobbyType not used on game server
+							else if(mLastJoinType == JoinType::JOIN_ROOM)
+								opJoinRoom(mRoomName, mLastJoinCreateIfNotExists, mLastJoinPlayerNumber, mLastCacheSliceIndex, mpCurrentlyJoinedRoom->getPlayerTtl(), mpCurrentlyJoinedRoom->getRoomTtl());
+							else if(mLastJoinType == JoinType::JOIN_RANDOM_ROOM)
 								opJoinRoom(mRoomName);
 						}
 					}
 				}
-
 				break;
 			case OperationCode::CREATE_ROOM:
 			case OperationCode::JOIN_ROOM:
@@ -373,13 +705,13 @@ namespace ExitGames
 						Hashtable properties = getLocalPlayer().getCustomProperties();
 						properties.put(static_cast<nByte>(Properties::Player::PLAYERNAME), getLocalPlayer().getName());
 						destroyMutablePlayer(mpLocalPlayer);
-						PlayerMovementInformant::onEnter<true>(*mpCurrentlyJoinedRoom, *(mpLocalPlayer=createMutablePlayer(nr, properties)));
+						PlayerMovementInformant::onEnterLocal(*mpCurrentlyJoinedRoom, *(mpLocalPlayer=createMutablePlayer(nr, properties)));
 
 						Hashtable roomProperties(ValueObject<Hashtable>(operationResponse.getParameterForCode(ParameterCode::ROOM_PROPERTIES)).getDataCopy());
 						Hashtable playerProperties(ValueObject<Hashtable>(operationResponse.getParameterForCode(ParameterCode::PLAYER_PROPERTIES)).getDataCopy());
 						const JVector<Object>& numbers = playerProperties.getKeys();
 						for(unsigned int i=0 ; i<numbers.getSize() ; ++i)
-							PlayerMovementInformant::onEnter(*mpCurrentlyJoinedRoom, KeyObject<int>(numbers[i]).getDataCopy(), ValueObject<Hashtable>(playerProperties.getValue(numbers[i])).getDataCopy());
+							PlayerMovementInformant::onEnterRemote(*mpCurrentlyJoinedRoom, KeyObject<int>(numbers[i]).getDataCopy(), ValueObject<Hashtable>(playerProperties.getValue(numbers[i])).getDataCopy());
 						readoutProperties(roomProperties, playerProperties, true, 0);
 
 						switch(mLastJoinType)
@@ -416,7 +748,7 @@ namespace ExitGames
 
 								mGameserver = ValueObject<JString>(operationResponse.getParameterForCode(ParameterCode::ADDRESS)).getDataCopy();
 								mState = PeerStates::DisconnectingFromMasterserver;
-								super::disconnect();
+								mPeer.disconnect();
 								mLastJoinType = JoinType::CREATE_ROOM;
 							}
 							break;
@@ -430,7 +762,7 @@ namespace ExitGames
 
 							mGameserver = ValueObject<JString>(operationResponse.getParameterForCode(ParameterCode::ADDRESS)).getDataCopy();
 							mState = PeerStates::DisconnectingFromMasterserver;
-							super::disconnect();
+							mPeer.disconnect();
 							mLastJoinType = JoinType::JOIN_ROOM;
 							break;
 						default:
@@ -451,15 +783,15 @@ namespace ExitGames
 				mRoomName = ValueObject<JString>(operationResponse.getParameterForCode(ParameterCode::ROOM_NAME)).getDataCopy();
 				mGameserver = ValueObject<JString>(operationResponse.getParameterForCode(ParameterCode::ADDRESS)).getDataCopy();
 				mState = PeerStates::DisconnectingFromMasterserver;
-				super::disconnect();
+				mPeer.disconnect();
 				mLastJoinType = JoinType::JOIN_RANDOM_ROOM;
 				break;
 			case OperationCode::JOIN_LOBBY:
+				mState = PeerStates::JoinedLobby;
 				if(mLastLobbyJoinType == JoinType::AUTO_JOIN_LOBBY)
 					onConnectToMasterFinished(mState==PeerStates::AuthenticatedComingFromGameserver);
 				else
 					mListener.joinLobbyReturn();
-				mState = PeerStates::JoinedLobby;
 				break;
 			case OperationCode::LEAVE_LOBBY:
 				{
@@ -469,14 +801,14 @@ namespace ExitGames
 				break;
 			case OperationCode::LEAVE:
 				{
-					PlayerMovementInformant::onLeave<true>(*mpCurrentlyJoinedRoom, getLocalPlayer().getNumber());
+					PlayerMovementInformant::onLeaveLocal(*mpCurrentlyJoinedRoom, getLocalPlayer().getNumber());
 					Hashtable op = getLocalPlayer().getCustomProperties();
 					op.put(static_cast<nByte>(Properties::Player::PLAYERNAME), getLocalPlayer().getName());
 					destroyMutablePlayer(mpLocalPlayer);
 					mpLocalPlayer = createMutablePlayer(-1, op);
 					mIsFetchingFriendList = false;
 					mState = PeerStates::DisconnectingFromGameserver;
-					super::disconnect();
+					mPeer.disconnect();
 				}
 				break;
 			case OperationCode::FIND_FRIENDS:
@@ -491,11 +823,77 @@ namespace ExitGames
 					ValueObject<JString*> roomList = operationResponse.getParameterForCode(ParameterCode::FIND_FRIENDS_RESPONSE_ROOM_ID_LIST);
 					bool* pOnlineList = *onlineList.getDataAddress();
 					JString* pRoomList = *roomList.getDataAddress();
-					for(unsigned int i=0; i<mFriendList.getSize(); ++i)
-						mFriendList[i] = FriendInfo(mFriendList[i].getName(), pOnlineList[i], pRoomList[i]);
+					mFriendList.removeAllElements();
+					for(unsigned int i=0; i<mLastFindFriendsRequest.getSize(); ++i) {
+						if((int)i < onlineList.getSizes()[0] && (int)i < roomList.getSizes()[0]) {
+							mFriendList.addElement(FriendInfo(mLastFindFriendsRequest[i], pOnlineList[i], pRoomList[i]));
+						}
+					}
 					if(!(mFriendListTimestamp=GETTIMEMS()))
 						mFriendListTimestamp = 1;
 					mListener.onFindFriendsResponse();
+				}
+				break;
+			case OperationCode::LOBBY_STATS:
+				{
+					if(operationResponse.getReturnCode())
+					{
+						EGLOG(DebugLevel::ERRORS, L"opLobbyStats failed with errorcode %d: %ls.", operationResponse.getReturnCode(), operationResponse.getDebugMessage().cstr());
+						break;
+					}
+					ValueObject<JString*> namesList = operationResponse.getParameterForCode(ParameterCode::LOBBY_NAME);
+					ValueObject<nByte*> typesList = operationResponse.getParameterForCode(ParameterCode::LOBBY_TYPE);
+					ValueObject<int*> peersList = operationResponse.getParameterForCode(ParameterCode::PEER_COUNT);
+					ValueObject<int*> roomsList = operationResponse.getParameterForCode(ParameterCode::ROOM_COUNT);
+
+					int* peers = *peersList.getDataAddress();
+					int* rooms = *roomsList.getDataAddress();
+
+					JVector<LobbyStats> res;
+					if(namesList.getType() != TypeCode::EG_NULL) 
+					{
+						JString* names = *namesList.getDataAddress();
+						nByte* types = *typesList.getDataAddress();
+						for(int i=0; i<*namesList.getSizes(); ++i) 
+							res.addElement(LobbyStats(names[i], types[i], peers[i], rooms[i]));
+					}
+					else 
+					{
+						for(int i=0; i<static_cast<int>(mLobbyStatsList.getSize()); ++i) 
+						{
+							int peerCount = i < *peersList.getSizes() ? peers[i] : 0;
+							int roomCount = i < *roomsList.getSizes() ? rooms[i] : 0;
+							res.addElement(LobbyStats(mLobbyStatsList[i].getName(), mLobbyStatsList[i].getType(), peerCount, roomCount));
+						}
+					}
+					mListener.onLobbyStatsResponse(res);
+				}
+				break;
+			case OperationCode::GET_REGIONS:
+                {
+                    if(operationResponse.getReturnCode())
+                    {
+                        EGLOG(DebugLevel::ERRORS, L"GetRegions failed with errorcode %d: %ls.", operationResponse.getReturnCode(), operationResponse.getDebugMessage().cstr());
+                        break;
+                    }
+                    JVector<JString> availableRegions(*ValueObject<JString*>(operationResponse.getParameterForCode(ParameterCode::REGION)).getDataAddress(), *ValueObject<JString*>(operationResponse.getParameterForCode(ParameterCode::REGION)).getSizes());
+                    JVector<JString> availableRegionServers(*ValueObject<JString*>(operationResponse.getParameterForCode(ParameterCode::ADDRESS)).getDataAddress(), *ValueObject<JString*>(operationResponse.getParameterForCode(ParameterCode::ADDRESS)).getSizes());
+                    if(M_USE_DEFAULT_REGION)
+                        mPeer.opAuthenticate(mAppID, mAppVersion, SEND_AUTHENTICATE_ENCRYPTED, getLocalPlayer().getName(), mAuthenticationValues, mAutoLobbyStats, mSelectedRegion=availableRegions[0]);
+                    else
+                        mListener.onAvailableRegions(availableRegions, availableRegionServers);
+                }
+				break;
+			case OperationCode::RPC:
+				{
+					if(operationResponse.getReturnCode())
+						EGLOG(DebugLevel::ERRORS, L"WebRpc failed with errorcode %d: %ls.", operationResponse.getReturnCode(), operationResponse.getDebugMessage().cstr());
+					int returnCode = ValueObject<int>(operationResponse.getParameterForCode(ParameterCode::RPC_CALL_RET_CODE)).getDataCopy();
+					ValueObject<JString> uriPathObj = ValueObject<JString>(operationResponse.getParameterForCode(ParameterCode::URI_PATH));
+					Common::JString* uriPath = uriPathObj.getDataAddress();
+					ValueObject<Dictionary<Object, Object> > returnDataObj = ValueObject<Dictionary<Object, Object> >(operationResponse.getParameterForCode(ParameterCode::RPC_CALL_PARAMS));
+					Dictionary<Object, Object>* returnData = returnDataObj.getDataAddress();
+					mListener.webRpcReturn(operationResponse.getReturnCode(), operationResponse.getDebugMessage(), uriPath?*uriPath:JString(), returnCode, returnData?*returnData:Dictionary<Object, Object>());
 				}
 				break;
 			default:
@@ -507,11 +905,14 @@ namespace ExitGames
 		{
 			switch(statusCode)
 			{
-			case 0:
-				break;
 			case StatusCode::CONNECT:
 				{
-					if(mState == PeerStates::ConnectingToGameserver)
+					if(mState == PeerStates::ConnectingToNameserver)
+					{
+						EGLOG(DebugLevel::INFO, L"connected to nameserver");
+						mState = PeerStates::ConnectedToNameserver;
+					}
+					else if(mState == PeerStates::ConnectingToGameserver)
 					{
 						EGLOG(DebugLevel::INFO, L"connected to gameserver");
 						mState = PeerStates::ConnectedToGameserver;
@@ -521,23 +922,32 @@ namespace ExitGames
 						EGLOG(DebugLevel::INFO, L"connected to masterserver");
 						mState = mState == PeerStates::Connecting ? PeerStates::Connected : PeerStates::ConnectedComingFromGameserver;
 					}
+
 					if(SEND_AUTHENTICATE_ENCRYPTED)
-						super::establishEncryption();
-					else
-						super::opAuthenticate(mAppID, mAppVersion, false, getLocalPlayer().getName(), mAuthenticationValues);
+						mPeer.establishEncryption();
+                    else if(mState == PeerStates::ConnectedToNameserver)
+                        mPeer.opGetRegions(false, mAppID);
+                    else
+                        mPeer.opAuthenticate(mAppID, mAppVersion, false, getLocalPlayer().getName(), mAuthenticationValues, mAutoLobbyStats); // secret is encrypted anyway
+                    break;
 				}
 				break;
 			case StatusCode::DISCONNECT:
 				{
 					mIsFetchingFriendList = false;
-					if(mState == PeerStates::DisconnectingFromMasterserver)
+					if(mState == PeerStates::DisconnectingFromNameserver)
 					{
-						super::connect(mGameserver);
+						mPeer.connect(mMasterserver);
+						mState = PeerStates::Connecting;
+					}
+					else if(mState == PeerStates::DisconnectingFromMasterserver)
+					{
+						mPeer.connect(mGameserver);
 						mState = PeerStates::ConnectingToGameserver;
 					}
 					else if(mState == PeerStates::DisconnectingFromGameserver)
 					{
-						super::connect(mMasterserver);
+						mPeer.connect(mMasterserver);
 						mState = PeerStates::ConnectingToMasterserver;
 					}
 					else
@@ -548,11 +958,15 @@ namespace ExitGames
 				}
 				break;
 			case StatusCode::ENCRYPTION_ESTABLISHED:
-				super::opAuthenticate(mAppID, mAppVersion, true, getLocalPlayer().getName(), mAuthenticationValues);
+				if(mState == PeerStates::ConnectedToNameserver)
+					mPeer.opGetRegions(true, mAppID);
+				else
+					mPeer.opAuthenticate(mAppID, mAppVersion, true, getLocalPlayer().getName(), mAuthenticationValues, mAutoLobbyStats);
 				break;
 			case StatusCode::ENCRYPTION_FAILED_TO_ESTABLISH:
 				handleConnectionFlowError(mState, statusCode, "Encryption failed to establish");
 				break;
+			// cases till next break should set mDisconnectedCause below
 			case StatusCode::EXCEPTION:
 			case StatusCode::EXCEPTION_ON_CONNECT:
 			case StatusCode::INTERNAL_RECEIVE_EXCEPTION:
@@ -561,7 +975,7 @@ namespace ExitGames
 			case StatusCode::DISCONNECT_BY_SERVER_USER_LIMIT:
 			case StatusCode::DISCONNECT_BY_SERVER_LOGIC:
 				mListener.connectionErrorReturn(statusCode);
-				if(this->getPeerState() != PeerState::DISCONNECTED && this->getPeerState() != PeerState::DISCONNECTING)
+				if(mPeer.getPeerState() != PeerState::DISCONNECTED && mPeer.getPeerState() != PeerState::DISCONNECTING)
 					disconnect();
 				break;
 			case StatusCode::SEND_ERROR:
@@ -583,11 +997,35 @@ namespace ExitGames
 				EGLOG(DebugLevel::ERRORS, L"received unknown status-code from server");
 				break;
 			}
+
+			// above cases starting from StatusCode::EXCEPTION till next break should set mDisconnectedCause here
+			switch(statusCode)
+			{
+			case StatusCode::DISCONNECT_BY_SERVER_USER_LIMIT:
+				mDisconnectedCause = DisconnectCause::DISCONNECT_BY_SERVER_USER_LIMIT;
+				break;
+			case StatusCode::EXCEPTION_ON_CONNECT:
+				mDisconnectedCause = DisconnectCause::EXCEPTION_ON_CONNECT;
+				break;
+			case StatusCode::DISCONNECT_BY_SERVER:
+				mDisconnectedCause = DisconnectCause::DISCONNECT_BY_SERVER;
+				break;
+			case StatusCode::DISCONNECT_BY_SERVER_LOGIC:
+				mDisconnectedCause = DisconnectCause::DISCONNECT_BY_SERVER_LOGIC;
+				break;
+			case StatusCode::TIMEOUT_DISCONNECT:
+				mDisconnectedCause = DisconnectCause::TIMEOUT_DISCONNECT;
+				break;
+			case StatusCode::EXCEPTION:
+			case StatusCode::INTERNAL_RECEIVE_EXCEPTION:
+				mDisconnectedCause = DisconnectCause::EXCEPTION;
+				break;
+			}
 		}
 
 		void Client::onEvent(const EventData& eventData)
 		{
-			EGLOG(DebugLevel::INFO, eventData.toString()); // don't print out the payload here, as that can get too expensive for big events
+			EGLOG(DebugLevel::ALL, L"%ls", eventData.toString(true).cstr()); // don't print out the payload here, as that can get too expensive for big events
 			switch(eventData.getCode())
 			{
 			case EventCode::ROOM_LIST:
@@ -648,15 +1086,34 @@ namespace ExitGames
 					mListener.onAppStatsUpdate();
 				}
 				break;
+			case EventCode::LOBBY_STATS:
+				{
+					ValueObject<JString*> namesList = eventData.getParameterForCode(ParameterCode::LOBBY_NAME);
+					ValueObject<nByte*> typesList = eventData.getParameterForCode(ParameterCode::LOBBY_TYPE);
+					ValueObject<int*> peersList = eventData.getParameterForCode(ParameterCode::PEER_COUNT);
+					ValueObject<int*> roomsList = eventData.getParameterForCode(ParameterCode::ROOM_COUNT);
+
+					JString* names = *namesList.getDataAddress();
+					nByte* types = *typesList.getDataAddress();
+					int* peers = *peersList.getDataAddress();
+					int* rooms = *roomsList.getDataAddress();
+
+					JVector<LobbyStats> res;
+					for(int i=0; i<*namesList.getSizes(); ++i) 
+						res.addElement(LobbyStats(names[i], types[i], peers[i], rooms[i]));
+					mListener.onLobbyStatsUpdate(res);
+				}
+				break;
 			case EventCode::JOIN:
 				{
 					int nr = ValueObject<int>(eventData.getParameterForCode(ParameterCode::PLAYERNR)).getDataCopy();
 					if(nr != getLocalPlayer().getNumber()) // the local player already got added in onOperationResponse cases OperationCode::CREATE_ROOM / OperationCode::JOIN_ROOM
-						PlayerMovementInformant::onEnter(getCurrentlyJoinedRoom(), nr, ValueObject<Hashtable>(eventData.getParameterForCode(ParameterCode::PLAYER_PROPERTIES)).getDataCopy());
-					int* players = ValueObject<int*>(eventData.getParameterForCode(ParameterCode::PLAYER_LIST)).getDataCopy();
+						PlayerMovementInformant::onEnterRemote(getCurrentlyJoinedRoom(), nr, ValueObject<Hashtable>(eventData.getParameterForCode(ParameterCode::PLAYER_PROPERTIES)).getDataCopy());
+					Object playersObj = eventData.getParameterForCode(ParameterCode::PLAYER_LIST);
+					int* players = ValueObject<int*>(playersObj).getDataCopy();
 					JVector<int> playerArr;
 					int* playersPtr = players;
-					for(int i=0 ; i<nr ; ++i, playersPtr++)
+					for(int i=0 ; i<playersObj.getSizes()[0] ; ++i, playersPtr++)
 						playerArr.addElement(*playersPtr);
 					mListener.joinRoomEventAction(nr, playerArr, *getCurrentlyJoinedRoom().getPlayerForNumber(nr));
 					deallocateArray(players);
@@ -665,11 +1122,24 @@ namespace ExitGames
 			case EventCode::LEAVE:
 				{
 					ValueObject<int> nr = eventData.getParameterForCode(ParameterCode::PLAYERNR);
-					if(!PlayerMovementInformant::onLeave<false>(getCurrentlyJoinedRoom(), nr.getDataCopy()))
-						EGLOG(DebugLevel::WARNINGS, L"EventCode::LEAVE - player %d who is leaving the room, has not been found in list of players, who are currently in the room", nr.getDataCopy());
-					mListener.leaveRoomEventAction(nr.getDataCopy());
+					ValueObject<bool> isInactive = eventData.getParameterForCode(ParameterCode::IS_INACTIVE);
+					if(isInactive.getDataCopy())
+					{
+						if(!PlayerPropertiesUpdateInformant::setIsInactive(*mpCurrentlyJoinedRoom, nr.getDataCopy(), true))
+							EGLOG(DebugLevel::WARNINGS, L"EventCode::LEAVE - player %d who is leaving the room, has not been found in list of players, who are currently in the room", nr.getDataCopy());
+					}
+					else if(!PlayerMovementInformant::onLeaveRemote(getCurrentlyJoinedRoom(), nr.getDataCopy()))
+							EGLOG(DebugLevel::WARNINGS, L"EventCode::LEAVE - player %d who is leaving the room, has not been found in list of players, who are currently in the room", nr.getDataCopy());
+					mListener.leaveRoomEventAction(nr.getDataCopy(), isInactive.getDataCopy());
 				}
 				break;
+			case EventCode::DISCONNECT:
+				{
+					ValueObject<int> nr = eventData.getParameterForCode(ParameterCode::PLAYERNR);
+					if(!PlayerPropertiesUpdateInformant::setIsInactive(*mpCurrentlyJoinedRoom, nr.getDataCopy(), true))
+						EGLOG(DebugLevel::WARNINGS, L"EventCode::DISCONNECT - player %d who is diconnecting the room, has not been found in list of players, who are currently in the room", nr.getDataCopy());
+					mListener.disconnectEventAction(nr.getDataCopy());
+				}
 			case EventCode::PROPERTIES_CHANGED:
 				{
 					ValueObject<int> target = eventData.getParameterForCode(ParameterCode::TARGET_PLAYERNR);
@@ -685,6 +1155,9 @@ namespace ExitGames
 					else
 						mListener.onRoomPropertiesChange(roomProperties);
 				}
+				break;
+			case EventCode::CACHE_SLICE_CHANGED:
+				mListener.onCacheSliceChanged(ValueObject<int>(eventData.getParameterForCode(ParameterCode::CACHE_SLICE_INDEX)).getDataCopy());
 				break;
 			default: // custom events are forwarded to the app
 				{
@@ -734,34 +1207,51 @@ namespace ExitGames
 				mCachedErrorCodeFromGameServer = errorCode;
 				mCachedErrorStringFromGameServer = errorString;
 				mState = PeerStates::DisconnectingFromGameserver;
-				super::disconnect();
+				mPeer.disconnect();
 				// response to app has to wait until back on master
 			}
 			else
 			{
 				mState = PeerStates::Disconnecting;
-				super::disconnect();
+				mPeer.disconnect();
 				mListener.connectReturn(errorCode, errorString);
 			}
 		}
 
 		bool Client::opAuthenticate(const JString& appID, const JString& appVersion, bool encrypted, const JString& userID)
 		{
-			return super::opAuthenticate(appID, appVersion, encrypted, userID);
+			return mPeer.opAuthenticate(appID, appVersion, encrypted, userID);
+		}
+
+		bool Client::opChangeGroups(const JVector<nByte>* groupsToRemove, const JVector<nByte>* groupsToAdd)
+		{
+			if(!getIsInGameRoom())
+				return false;
+			return mPeer.opChangeGroups(groupsToRemove, groupsToAdd);
+		}
+
+		bool Client::opGetRegions(bool encrypted, const JString& appID)
+		{
+			return mPeer.opGetRegions(encrypted, appID);
+		}
+
+		bool Client::opWebRpc(const JString& uriPath, const Object& parameters)
+		{
+			return mPeer.opWebRpc(uriPath, parameters);
 		}
 
 		bool Client::opSetPropertiesOfPlayer(int playerNr, const Hashtable& properties)
 		{
 			if(!getIsInGameRoom())
 				return false;
-			return super::opSetPropertiesOfPlayer(playerNr, properties);
+			return mPeer.opSetPropertiesOfPlayer(playerNr, properties);
 		}
 
-		bool Client::opSetPropertiesOfRoom(const Hashtable& properties)
+		bool Client::opSetPropertiesOfRoom(const Hashtable& properties, bool webForward)
 		{
 			if(!getIsInGameRoom())
 				return false;
-			return super::opSetPropertiesOfRoom(properties);
+			return mPeer.opSetPropertiesOfRoom(properties, webForward);
 		}
 
 		void Client::onConnectToMasterFinished(bool comingFromGameserver)
@@ -817,10 +1307,10 @@ namespace ExitGames
 			RoomFactory::destroy(pRoom);
 		}
 
-		MutableRoom* Client::createMutableRoom(const JString& name, const Hashtable& properties, const JVector<JString>& propsListedInLobby)
+		MutableRoom* Client::createMutableRoom(const JString& name, const Hashtable& properties, const JVector<JString>& propsListedInLobby, int playerTtl, int roomTtl)
 		{
 			mpMutableRoomFactory = getMutableRoomFactory();
-			return mpMutableRoomFactory->create(name, properties, this, propsListedInLobby);
+			return mpMutableRoomFactory->create(name, properties, this, propsListedInLobby, playerTtl, roomTtl);
 		}
 
 		void Client::destroyMutableRoom(const MutableRoom* pRoom) const

@@ -11,8 +11,6 @@
 #include "Common-cpp/inc/Helpers/ToStringImplementation.h"
 #include <memory>
 
-#undef min
-
 namespace ExitGames
 {
 	namespace Common
@@ -68,7 +66,6 @@ namespace ExitGames
 			void setElementAt(const Etype &obj, unsigned int index);
 			JString& toString(JString& retStr, bool withTypes=false) const;
 		private:
-			int min(unsigned int left, unsigned int right) const;
 			void verifyIndex(unsigned int index) const;
 			JString primitiveToString(void) const;
 			JString objectToString(void) const;
@@ -312,7 +309,7 @@ namespace ExitGames
 		template<typename Etype>
 		bool JVector<Etype>::getIsEmpty(void) const
 		{
-			return mSize == 0;
+			return !mSize;
 		}
 
 		/**
@@ -557,12 +554,6 @@ namespace ExitGames
 				mpData = temp;
 				mCapacity = mSize;
 			}
-		}
-
-		template<typename Etype>
-		int JVector<Etype>::min(unsigned int left, unsigned int right) const
-		{
-			return left<right?left:right;
 		}
 	  
 		template<typename Etype>

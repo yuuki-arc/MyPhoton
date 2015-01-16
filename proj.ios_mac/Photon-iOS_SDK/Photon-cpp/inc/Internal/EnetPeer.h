@@ -30,18 +30,22 @@ namespace ExitGames
 				bool startConnection(const char* ipAddr);
 				void disconnect(void);
 				void stopConnection(void);
-				void sendOutgoingCommands(void);
+				bool sendOutgoingCommands(void);
+				bool sendAcksOnly(void);
 				void copyCommandToBuffer(nByte* pDst, const nByte* pSrc, int& size);
 				bool dispatchIncomingCommands(void);
 				void fetchServerTimestamp(void);
 				void onConnect(int nError);
 				void onReceiveData(nByte* pBuf, int iCount, int nError);
 
-				int getIncomingReliableCommandsCount(void);
-				int getQueuedIncomingCommands(void);
-				int getQueuedOutgoingCommands(void);
-				int getSentCountAllowance(void);
+				int getIncomingReliableCommandsCount(void) const;
+				int getQueuedIncomingCommands(void) const;
+				int getQueuedOutgoingCommands(void) const;
+				int getSentCountAllowance(void) const;
 				void setSentCountAllowance(int sentCountAllowance);
+				int getResentReliableCommands(void) const;
+				int getLimitOfUnreliableCommands(void) const;
+				void setLimitOfUnreliableCommands(int value);
 
 				void send(nByte cType, nByte* payload, unsigned int payloadSize, nByte channelId);
 				bool sendInFragments(nByte* payload, unsigned int payloadSize, nByte channelId);
@@ -58,7 +62,7 @@ namespace ExitGames
 
 				ExitGames::Common::JVector<EnetCommand> outgoingAcknowledgements;
 				ExitGames::Common::JVector<EnetCommand> sentReliableCommands;
-				EnetChannel** channels;						
+				EnetChannel** channels;
 				int windowSize;  
 				int* unsequencedWindow;
 				int outgoingUnsequencedGroupNumber;
@@ -73,6 +77,10 @@ namespace ExitGames
 				int mTimeoutInt;
 				int mServerSentTime;
 				int mSentCountAllowance;
+				int mLimitOfUnreliableCommands;
+
+				void sendDataInternal(void);
+				unsigned int calculateCrc(nByte* buffer, int length);
 
 				friend void EnetCommand::init(EnetPeer* const  pEnetPeer, nByte cType, const nByte* const payload, int payloadLen);
 			};

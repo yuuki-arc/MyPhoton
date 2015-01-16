@@ -17,6 +17,5 @@ namespace ExitGames
 			static const nByte MASTER_CLIENT = 2;
 		}
 	}
-
 	/** @file */
 }

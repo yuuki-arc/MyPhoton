@@ -4,8 +4,8 @@
  * mailto:developer@exitgames.com
  */
 
+#include "LoadBalancing-cpp/inc/Client.h"
 #include "LoadBalancing-cpp/inc/MutableRoom.h"
-#include "LoadBalancing-cpp/inc/Peer.h"
 #include "LoadBalancing-cpp/inc/Internal/Utils.h"
 #include "LoadBalancing-cpp/inc/Internal/Enums/Properties/Room.h"
 
@@ -19,13 +19,15 @@ namespace ExitGames
 		using namespace Common::MemoryManagement;
 		using namespace Internal;
 
-		MutableRoom::MutableRoom(const JString& name, const Hashtable& properties, Peer* pPeer, const JVector<JString>& propsListedInLobby)
+		MutableRoom::MutableRoom(const JString& name, const Hashtable& properties, Client* pClient, const JVector<JString>& propsListedInLobby, int playerTtl, int roomTtl)
 			: super(name, properties)
-			, mLoadBalancingPeer(pPeer)
+			, mLoadBalancingClient(pClient)
 			, mIsVisible(true)
 			, mPlayers(JVector<Player*>())
 			, mMasterClientID(0)
 			, mPropsListedInLobby(propsListedInLobby)
+			, mRoomTtl(roomTtl)
+			, mPlayerTtl(playerTtl)
 		{
 			cacheProperties(properties);
 		}
@@ -57,16 +59,16 @@ namespace ExitGames
 			const MutableRoom& temp = static_cast<const MutableRoom&>(toCopy);
 			if(!temp.getIsMutable())
 				return *this;
-			mLoadBalancingPeer = temp.mLoadBalancingPeer;
+			mLoadBalancingClient = temp.mLoadBalancingClient;
 			mIsVisible = temp.mIsVisible;
 			mPlayers = temp.mPlayers;
 			mMasterClientID = temp.mMasterClientID;
 			mPropsListedInLobby = temp.mPropsListedInLobby;
-			mLoadBalancingPeer = temp.mLoadBalancingPeer;
+			mLoadBalancingClient = temp.mLoadBalancingClient;
 			return *this;
 		}
 
-		void MutableRoom::mergeCustomProperties(const Hashtable& customProperties)
+		void MutableRoom::mergeCustomProperties(const Hashtable& customProperties, bool webForward)
 		{
 			Hashtable stripDict = Utils::stripToCustomProperties(customProperties);
 			if(!stripDict.getSize())
@@ -75,12 +77,12 @@ namespace ExitGames
 			mCustomProperties.put(stripDict);
 			mCustomProperties = Utils::stripKeysWithNullValues(mCustomProperties);
 			if(mCustomProperties != oldDict)
-				mLoadBalancingPeer->opSetPropertiesOfRoom(stripDict);
+				mLoadBalancingClient->opSetPropertiesOfRoom(stripDict, webForward);
 		}
 
-		void MutableRoom::addCustomProperties(const Hashtable& customProperties)
+		void MutableRoom::addCustomProperties(const Hashtable& customProperties, bool webForward)
 		{
-			mergeCustomProperties(Utils::stripKeysWithNullValues(customProperties));
+			mergeCustomProperties(Utils::stripKeysWithNullValues(customProperties), webForward);
 		}
 
 		void MutableRoom::cacheProperties(const Hashtable& properties)
@@ -143,7 +145,8 @@ namespace ExitGames
 		{
 			Hashtable properties;
 			properties.put(key, val);
-			mLoadBalancingPeer->opSetPropertiesOfRoom(properties);
+			const bool webForward = false; // TODO: do we need to forward standard properties?
+			mLoadBalancingClient->opSetPropertiesOfRoom(properties, webForward);
 		}
 
 		const JVector<Player*>& MutableRoom::getPlayers(void) const
@@ -169,7 +172,7 @@ namespace ExitGames
 			return mPropsListedInLobby;
 		}
 
-		void MutableRoom::setPropsListedInLobby(const JVector<JString>& propsListedInLobby)
+		void MutableRoom::setPropsListedInLobby(const JVector<JString>& propsListedInLobby, bool webForward)
 		{
 			if(mPropsListedInLobby != propsListedInLobby)
 			{
@@ -180,8 +183,18 @@ namespace ExitGames
 				Hashtable properties;
 				properties.put(static_cast<nByte>(Properties::Room::PROPS_LISTED_IN_LOBBY), propsListedInLobbyArr, propsListedInLobby.getSize());
 				deallocateArray(propsListedInLobbyArr);
-				mLoadBalancingPeer->opSetPropertiesOfRoom(properties);
+				mLoadBalancingClient->opSetPropertiesOfRoom(properties, webForward);
 			}
+		}
+
+		int MutableRoom::getPlayerTtl(void) const
+		{
+			return mPlayerTtl;
+		}
+
+		int MutableRoom::getRoomTtl(void) const
+		{
+			return mRoomTtl;
 		}
 
 		Player* MutableRoom::createPlayer(int number, const Hashtable& properties) const

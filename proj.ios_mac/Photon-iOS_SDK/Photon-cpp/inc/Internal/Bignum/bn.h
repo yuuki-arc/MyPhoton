@@ -447,10 +447,10 @@ BIGNUM *egbn_dup_expand(const BIGNUM *a, int words);
 #define egbn_fix_top(a) \
         { \
         BN_ULONG *ftl; \
-	if ((a)->top > 0) \
+	if((a)->top > 0) \
 		{ \
-		for (ftl= &((a)->d[(a)->top-1]); (a)->top > 0; (a)->top--) \
-		if (*(ftl--)) break; \
+		for(ftl= &((a)->d[(a)->top-1]); (a)->top > 0; (a)->top--) \
+		if(*(ftl--)) break; \
 		} \
 	}
 

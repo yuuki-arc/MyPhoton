@@ -49,13 +49,14 @@ namespace ExitGames
 				void disconnect(void);
 				void stopConnection(void);
 				void serviceBasic(void);
-				void sendOutgoingCommands(void);
+				bool sendOutgoingCommands(void);
+				bool sendAcksOnly(void);
 				bool dispatchIncomingCommands(void);
 				void fetchServerTimestamp(void);
 
-				int getIncomingReliableCommandsCount(void);
-				int getQueuedIncomingCommands(void);
-				int getQueuedOutgoingCommands(void);
+				int getIncomingReliableCommandsCount(void) const;
+				int getQueuedIncomingCommands(void) const;
+				int getQueuedOutgoingCommands(void) const;
 
 				void onConnect(int nError);
 				void onReceiveData(nByte* pBuf, int iCount, int nError);
