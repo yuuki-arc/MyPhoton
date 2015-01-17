@@ -7,6 +7,37 @@ Questions? Write to developer@exitgames.com or visit forum.exitgames.com
 Please do also look into Common release history.
 
 
+*** version 4.0.0.0
+	Date: 09-19-2014
+	- added: class TrafficStats
+	- added: class TrafficStatsGameLevel
+	- changed: the constuctors of classes LitePeer and PhotonPeer no takes a value of the new ConnectionProtocol enumeration as parameter instead of the old bool parameter "useTCP"
+	- added: parameter "interestGroup" to LitePeer::opRaiseEvent()
+	- added: LitePeer::opChangeGroups()
+	- changed: PhotonPeer::sendOutgoingCommands() now returns a bool, indicating if more commands are waiting to go out
+	- added: PhotonPeer::sendAcksOnly()
+	- added: PhotonPeer::getByteCountCurrentDispatch()
+	- added: PhotonPeer::getByteCountLastOperation()
+	- added: PhotonPeer::getTimestampOfLastSocketReceive()
+	- added: PhotonPeer::getResentReliableCommands(
+	- added: PhotonPeer::getLimitOfUnreliableCommands
+	- added: PhotonPeer::setLimitOfUnreliableCommands
+	- added: PhotonPeer::setCrcEnabled
+	- added: PhotonPeer::getCrcEnabled
+	- added: PhotonPeer::getPacketLossByCrc
+	- added: PhotonPeer::setTrafficStatsEnabled()
+	- added: PhotonPeer::getTrafficStatsEnabled()
+	- added: PhotonPeer::getTrafficStatsElapsedMs()
+	- added: PhotonPeer::resetTrafficStats()
+	- added: PhotonPeer::TrafficStats& getTrafficStatsIncoming()
+	- added: PhotonPeer::TrafficStats& getTrafficStatsOutgoing()
+	- added: PhotonPeer::TrafficStatsGameLevel& getTrafficStatsGameLevel()
+	- added: PhotonPeer::vitalStatsToString()
+	- changed: PhotonPeer::service() now calls PhotonPeer::sendOutgoingCommands() in a loop until there is nothing left to send, instead of just calling it once per PhotonPeer::service() call like before
+	- added: PhotonPeer::trafficStatsResetMaximumCounters()
+	- fixed: the LitePeer::opRaiseEvent() overload for multidimensional arrays has not been const correct
+
+
 *** version 3.2.5.5
 	Date: 09-19-2014
 	- fixed: in high traffic situations when using tcp messages payloads and also messages sizes coudl get corrupt, leading into huge memory allocation
@@ -20,7 +51,7 @@ Please do also look into Common release history.
 
 
 *** version 3.2.5.2
-	Date: 01-17-2013
+	Date: 01-17-2014
 	- fixed: the LitePeer::opRaiseEvent() overload for multi dimensional arrays has not been const correct
 
 
@@ -34,7 +65,7 @@ Please do also look into Common release history.
 	Date: 09-27-2013
 	- renamed: PhotonPeer::getSentTimeAllowance() into getDisconnectTimeout()
 	- renamed: PhotonPeer::setSentTimeAllowance() into setDisconnectTimeout()
-	- changed: the disconnect timeout settings now are also in force with tcp, not only with udp like it has been before
+	- changed: the disconnect timeout settings now are also in enforced with tcp, not only with udp like it has been before
 	- fixed: the info about the used time macro in the doc of PhotonPeer::getServerTimeOffset() to match the macro thats actually used
 	- fixed: dynamic hostname resolution now gets done in a separate thread, because gethostbyname() is blocking and in some rare situations with bad network conditions it could block its thread for quite a while
 	- fixed: in some situations a permanent error from the underlying socket connection has been treated as a temporary error, so that only a send error and no connection error has been thrown

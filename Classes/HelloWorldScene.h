@@ -5,6 +5,7 @@
 #include "LoadBalancing-cpp/inc/Client.h"
 #include "NetworkLogic.h"
 #include "XTLayer.h"
+#include "PhotonLogger.h"
 #include <array>
 
 USING_NS_CC;
@@ -43,6 +44,7 @@ private:
     
     void addParticle(int playerNr, float x, float y);
     
+    PhotonLogger* photonLogger;
     NetworkLogic* networkLogic;
 };
 

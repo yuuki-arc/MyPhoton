@@ -10,6 +10,7 @@
 #include "Photon-cpp/inc/Enums/ErrorCode.h"
 #include "Photon-cpp/inc/Enums/NetworkPort.h"
 #include "Photon-cpp/inc/Enums/StatusCode.h"
+#include "Photon-cpp/inc/Enums/ConnectionProtocol.h"
 
 namespace ExitGames
 {
@@ -18,7 +19,7 @@ namespace ExitGames
 		class PhotonPeer
 		{
 		public:
-			PhotonPeer(PhotonListener& listener, bool useTcp=false);
+			PhotonPeer(PhotonListener& listener, nByte connectionProtocol = ConnectionProtocol::UDP);
 			virtual ~PhotonPeer(void);
 
 			virtual bool connect(const Common::JString& ipAddr, const nByte appID[Internal::InternalProperties::APP_NAME_LENGTH]=NULL);
@@ -26,16 +27,22 @@ namespace ExitGames
 			virtual void service(bool dispatchIncomingCommands=true);
 			virtual void serviceBasic(void);
 			virtual bool opCustom(const OperationRequest& operationRequest, bool sendReliable, nByte channelID=0, bool encrypt=false);
-			virtual void sendOutgoingCommands(void);
+			virtual bool sendOutgoingCommands(void);
+			virtual bool sendAcksOnly(void);
 			virtual bool dispatchIncomingCommands(void);
 			virtual bool establishEncryption(void);
 			virtual void fetchServerTimestamp(void);
+			virtual void resetTrafficStats(void);
+			virtual void resetTrafficStatsMaximumCounters(void);
+			virtual Common::JString vitalStatsToString(bool all) const;
 
 			const PhotonListener* getListener(void) const;
 			int getServerTimeOffset(void) const;
 			int getServerTime(void) const;
 			int getBytesOut(void) const;
 			int getBytesIn(void) const;
+			int getByteCountCurrentDispatch(void) const;
+			int getByteCountLastOperation(void) const;
 			PeerState::PeerState getPeerState(void) const;
 			int getSentCountAllowance(void) const;
 			void setSentCountAllowance(int setSentCountAllowance);
@@ -43,6 +50,7 @@ namespace ExitGames
 			void setTimePingInterval(int setTimePingInterval);
 			int getRoundTripTime(void) const;
 			int getRoundTripTimeVariance(void) const;
+			int getTimestampOfLastSocketReceive(void) const;
 			Common::DebugLevel::DebugLevel getDebugOutputLevel(void) const;
 			bool setDebugOutputLevel(Common::DebugLevel::DebugLevel debugLevel);
 			int getIncomingReliableCommandsCount(void) const;
@@ -53,11 +61,24 @@ namespace ExitGames
 			int getQueuedOutgoingCommands(void) const;
 			Common::JString getServerAddress(void) const;
 			bool getIsEncryptionAvailable(void) const;
+			int getResentReliableCommands(void) const;
+			int getLimitOfUnreliableCommands(void) const;
+			void setLimitOfUnreliableCommands(int value);
+			bool getCrcEnabled(void) const;
+			void setCrcEnabled(bool crcEnabled);
+			int getPacketLossByCrc(void) const;
+			bool getTrafficStatsEnabled(void) const;
+			void setTrafficStatsEnabled(bool trafficStasEnabled);
+			int getTrafficStatsElapsedMs(void) const;
+			const TrafficStats& getTrafficStatsIncoming(void) const;
+			const TrafficStats& getTrafficStatsOutgoing(void) const;
+			const TrafficStatsGameLevel& getTrafficStatsGameLevel(void) const;
 
 			static short getPeerCount(void);
 		protected:
-			Internal::PeerBase* mpPhotonPeer;
 			Common::Logger mLogger;
+		private:
+			Internal::PeerBase* mpPhotonPeer;
 		};
 	}
 }

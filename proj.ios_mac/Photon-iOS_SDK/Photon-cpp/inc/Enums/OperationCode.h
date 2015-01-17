@@ -17,8 +17,8 @@ namespace ExitGames
 			static const nByte RAISE_EV      = 253;
 			static const nByte SETPROPERTIES = 252;
 			static const nByte GETPROPERTIES = 251;
+			static const nByte CHANGE_GROUPS = 248;
 		}
-
 		/** @file */
 	}
 }

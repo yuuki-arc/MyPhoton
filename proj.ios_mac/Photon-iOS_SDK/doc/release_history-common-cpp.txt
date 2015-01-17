@@ -6,6 +6,17 @@
 Questions? Write to developer@exitgames.com or visit forum.exitgames.com
 
 
+*** version 4.0.0.0
+	Date: 12-01-2014
+	- fixed: JString::operator= crashed when passing a NULL wchar_t pointer as parameter
+	- fixed: ANSIString::operator= crashed when passing a NULL char pointer as parameter
+	- fixed: the Dictionary::getKeys() template didn't compile
+	- added: new define EG_LOGGING, which determines, if logging will be activated
+	- added: new define EG_NOLOGGING, which prevents EG_LOGGING from getting defined automatically; use this to deactivate logging in the app code, if you wish so
+	- changed: logging functionality now is not dependent on the EG_DEBUGGER define anymore, but depends on EG_LOGGING, which makes it also available in release builds of the libs
+	- fixed: deserialization of CumstomType instances as elements of Object arrays did not work correctly if the element count of the Object arrays has been above 1 (other element types have worked fine and also using CustomType outside of Object arrays has worked fine)
+
+
 *** version 3.2.5.4
 	Date: 09-03-2014
 	- fixed: added support for deserializing Object arrays with Dictionary elements
@@ -15,7 +26,7 @@ Questions? Write to developer@exitgames.com or visit forum.exitgames.com
 
 
 *** version 3.2.5.2
-	Date: 01-17-2013
+	Date: 01-17-2014
 	- fixed: EGLOG did not work with exactly one optional argument, if that optional argument has been of type char* (a problem with overload resolution inside the implementation)
 	- added: Visual Studio 2013 support for Windows (VS2010 and VS2012 also stay supported for now)
 
@@ -41,7 +52,7 @@ Questions? Write to developer@exitgames.com or visit forum.exitgames.com
 	- changed: DictionaryBase::typeToString() now does not simply print "(DictionaryBase)", but pretends to be a Dictionary<key, value> by reading out the type-info of the instance it has been called on to also print its nested types, so that it now prints something like i.e. "Dictionary<int, JString>" or "Dictionary<short, Dictionary<float Hashtable>>"
 	- note: known limitation: DictionaryBase does not have any information about the custom type code of a CustomType, so for a CustomType its TypeToString() implementation can just print "CustomType"
 and not the actual type
-	- changed: DictionaryBase::toString() no longer prints out the key- and valuetype before each element, if true has been passed for withTypes, so printing them per entry just spams the output with to much redundant and unneeded information (it however still passes that flag through to nested containers for which it may be of use (which is indeed the case for example for nested Hashtables, in which the types can differ per element))
+	- changed: DictionaryBase::toString() no longer prints out the key- and valuetype before each element, if true has been passed for withTypes, as printing them per entry just spams the output with too much redundant and unneeded information (it however still passes that flag through to nested containers for which it may be of use (which is indeed the case for example for nested Hashtables, in which the types can differ per element))
 
 
 *** version 3.2.3.2
@@ -127,7 +138,7 @@ and not the actual type
 
 *** version 3.0.4.0
 	Date: 08-09-2012
-	- fixed: Hashtable::operator==() and operator!=() have seen two instances as not equal, when they compared the exactly same entries, but in another order, in which hey have been added to the instances, now that order isn't relevant anymore
+	- fixed: Hashtable::operator==() and operator!=() have seen two instances as not equal, when they compared the exactly same entries, but in another order, in which they have been added to the instances, now that order isn't relevant anymore
 	- changed: all overloads of JString::replace() are now marked as const, as they should always have been, as they operate on a copy of the instance, on which they have been called on, and do not change the original instance
 	- fixed: type names for templates have not been printed correctly by ToString::toString(true)
 	- changed: JString::toString() now adds quotation marks at the start and end of its return string, so that the return string is easier to distinguish as a string-instance's string representation, especially for empty strings or strings with only whitespace or not displayable characters
@@ -607,7 +618,7 @@ and not the actual type
 	- modified: parameter-order of NeutronSession::raiseEventInChannel() now is: byte eventCode, EGN_HashTable *event, boolean filter, int minutesValid, byte maxTypeCount, byte channel
 	- modified: parameter-order of NeutronSession::raiseEventForActor() now is: byte eventCode, EGN_HashTable *event, boolean filter, char *userID, int minutesValid, byte maxTypeCount, byte channel
 	- New: void(*CB_RaiseEventInChannelInGameReturn)(void *pApp, int retCode);
-	- fixed: a few memory leaks, which appeared by calling with wrong parameters, in NeutronGame::raiseEvent(), NeutronSession::raiseEventInChannel() and NeutronSession::raiseEventForActor()	
+	- fixed: a few memory leaks, which appeared by calling with wrong parameters, in NeutronGame::raiseEvent(), NeutronSession::raiseEventInChannel() and NeutronSession::raiseEventForActor()
 	- fixed a bug in NeutronSession::setShadowChunked() and NeutronSession::setShadow(), where 0 passed for shadowsize could cause a crash.
 	 Win32 only:
 		- New: NeutronSession::setProxySettings() (see documentation,  SampleNeutron and SampleWrapper for more info)

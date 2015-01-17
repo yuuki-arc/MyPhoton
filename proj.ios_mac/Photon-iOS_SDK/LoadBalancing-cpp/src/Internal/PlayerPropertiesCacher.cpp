@@ -17,6 +17,10 @@ namespace ExitGames
 			{
 				player.cacheProperties(properties);
 			}
+			void PlayerPropertiesCacher::setIsInactive(Player& player, bool isInactive)
+			{
+				player.setIsInactive(isInactive);
+			}
 		}
 	}
 }

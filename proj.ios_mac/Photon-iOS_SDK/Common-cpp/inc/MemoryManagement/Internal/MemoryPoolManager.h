@@ -29,7 +29,7 @@ namespace ExitGames
 					void dealloc(void* p);
 					void* resize(void* p, size_t size);
 
-					static MemoryPoolManager& get();
+					static MemoryPoolManager& get(void);
 #ifdef EG_DEBUGGER
 					unsigned long long ctr, ctr2, ctr3;
 #endif

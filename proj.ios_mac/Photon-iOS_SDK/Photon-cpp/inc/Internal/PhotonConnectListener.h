@@ -17,9 +17,9 @@ namespace ExitGames
 			class PhotonConnectListener
 			{
 			public:
-				virtual void onConnect(int nError)= 0;
-				virtual void onReceiveData(nByte* pBuf, int iCount, int nError)= 0;
-				virtual void onSendCommands(int nError)= 0;
+				virtual void onConnect(int nError) = 0;
+				virtual void onReceiveData(nByte* pBuf, int iCount, int nError) = 0;
+				virtual void onSendCommands(int nError) = 0;
 			};
 		}
 	}

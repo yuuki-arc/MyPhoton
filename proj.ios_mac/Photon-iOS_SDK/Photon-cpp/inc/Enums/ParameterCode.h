@@ -24,8 +24,10 @@ namespace ExitGames
 			static const nByte RECEIVER_GROUP   = 246;
 			static const nByte DATA             = 245;
 			static const nByte CODE             = 244;
+			static const nByte GROUP            = 240;
+			static const nByte REMOVE           = 239;
+			static const nByte ADD              = 238;
 		}
-
 		/** @file */
 	}
 }

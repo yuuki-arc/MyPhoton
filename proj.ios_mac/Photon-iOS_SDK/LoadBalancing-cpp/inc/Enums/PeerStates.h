@@ -16,8 +16,12 @@ namespace ExitGames
 			{
 				Uninitialized,
 				PeerCreated,
+				ConnectingToNameserver,
+				ConnectedToNameserver,
+				DisconnectingFromNameserver,
 				Connecting,
 				Connected,
+				WaitingForCustomAuthenticationNextStepCall,
 				Authenticated,
 				JoinedLobby,
 				DisconnectingFromMasterserver,

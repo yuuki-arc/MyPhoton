@@ -21,6 +21,7 @@ namespace ExitGames
 				static const nByte RAISE_EVENT      = Lite::OperationCode::RAISE_EV;
 				static const nByte SET_PROPERTIES   = Lite::OperationCode::SETPROPERTIES;
 				static const nByte GET_PROPERTIES   = Lite::OperationCode::GETPROPERTIES;
+				static const nByte CHANGE_GROUPS    = Lite::OperationCode::CHANGE_GROUPS;
 				static const nByte AUTHENTICATE     = 230;
 				static const nByte JOIN_LOBBY       = 229;
 				static const nByte LEAVE_LOBBY      = 228;
@@ -28,6 +29,9 @@ namespace ExitGames
 				static const nByte JOIN_ROOM        = 226;
 				static const nByte JOIN_RANDOM_ROOM = 225;
 				static const nByte FIND_FRIENDS     = 222;
+				static const nByte LOBBY_STATS      = 221;
+				static const nByte GET_REGIONS      = 220;
+				static const nByte RPC              = 219;
 			};
 		}
 	}

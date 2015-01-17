@@ -117,7 +117,7 @@ namespace ExitGames
 
 			EG_CHAR* mBuffer;        // Stores the characters
 			unsigned int mBufferLen; // Max strlen for Buffer
-			unsigned int Length;     // Length of string
+			unsigned int mLength;     // length of string
 		};
 
 		template<typename _Elem, typename _Traits> ::std::basic_ostream<_Elem, _Traits>& operator<<(::std::basic_ostream<_Elem, _Traits>& stream, const JString& string);

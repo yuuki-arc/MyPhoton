@@ -38,7 +38,7 @@
 #		define ENOTCONN     SYS_NET_ENOTCONN
 #		define ECONNREFUSED SYS_NET_ECONNREFUSED
 #		define ECONNRESET   SYS_NET_ECONNRESET
-#		define select(a, b, c, d, e)	socketselect((a), (b), (c), (d), (e))
+#		define select(a, b, c, d, e) socketselect((a), (b), (c), (d), (e))
 #	else
 #		include <sys/ioctl.h>
 #	endif
@@ -109,12 +109,12 @@ Internal state of connection for PhotonConnect.
 */
 typedef enum
 {
-	NC_Closed = 0,			// Connection closed.
+	NC_Closed = 0,         // Connection closed.
 	NC_DoingDNSResolution, // Is resolving the ip address for the passed hostname.
-	NC_DNSResolutionDone, // Is resolving the ip address for the passed hostname.
-	NC_Connecting,			// Is connecting now.
-	NC_NotConnectedError,   // There was an error of establishing connection.
-	NC_Connected			// Connection is established.
+	NC_DNSResolutionDone,  // Is resolving the ip address for the passed hostname.
+	NC_Connecting,         // Is connecting now.
+	NC_NotConnectedError,  // There was an error of establishing connection.
+	NC_Connected           // Connection is established.
 } PhotonConnect_ConnectionState;
 
 /**
@@ -123,10 +123,10 @@ PhotonConnect.
 */
 typedef enum
 {
-	NC_Reported = 0,	// The current transfer state was reported.
-	NC_Processing,		// Data transferring.
-	NC_NeedReportOk,	// Need to inform about successful data transfer.
-	NC_NeedReportError  // Need to inform about unsuccessful data transfer.
+	NC_Reported = 0,   // The current transfer state was reported.
+	NC_Processing,     // Data transferring.
+	NC_NeedReportOk,   // Need to inform about successful data transfer.
+	NC_NeedReportError // Need to inform about unsuccessful data transfer.
 } PhotonConnect_SendRecvState;
 
 namespace ExitGames
@@ -139,9 +139,9 @@ namespace ExitGames
 			{
 			public:
 				PhotonConnect(PhotonConnectListener& listener);
-				virtual ~PhotonConnect(void) = 0;
+				virtual ~PhotonConnect(void);
 
-				void service(void);
+				virtual void service(void);
 				bool startConnection(const char* ipAddr);
 				int stopConnection(void);
 				int sendPackage(const nByte* src, int count);
@@ -153,7 +153,7 @@ namespace ExitGames
 			protected:
 				int recvBuffer(nByte* pBuff, int iSize, int* pBytesRead);
 				virtual int recvBuffer(nByte** ppBuff, int* pBytesRead) = 0;
-				virtual int sendBuffer(char* pBuff, int& size);				
+				virtual int sendBuffer(char* pBuff, int& size);
 
 				static unsigned short mInstanceCount;
 				PhotonConnectListener& mListener; // pointer to parent.
@@ -165,12 +165,12 @@ namespace ExitGames
 				int mSendBufferSize; // Size of the data buffer for sending.
 				int mBytesToSend; // Number of bytes for sending.
 				int mBytesOut; // counts all bytes going out (include header)
-				int	mBytesIn; // counts all bytes coming in (include header)
+				int mBytesIn; // counts all bytes coming in (include header)
 				struct sockaddr_in mAddr; // socket address to connect
 			private:
 				static int initialize(void);
 				static void deinitialize(void);
-
+				
 				virtual SOCKET socket(void) = 0;
 				virtual unsigned short getDefaultPort(void) = 0;
 				virtual bool checkConnection(void) = 0;

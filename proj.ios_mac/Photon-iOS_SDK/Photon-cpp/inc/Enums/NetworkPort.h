@@ -15,7 +15,6 @@ namespace ExitGames
 			static const int UDP = 5055;
 			static const int TCP = 4530;
 		}
-
 		/** @file */
 	}
 }

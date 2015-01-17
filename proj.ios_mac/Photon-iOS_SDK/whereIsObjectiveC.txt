@@ -1,0 +1,1 @@
+You can rest assured that we have not dropped objC support. The objC Photon 4 Clients have just not been finished yet. If you use the Photon objective C API, then please stay with 3.2.5.5 for now until we release Photon 4 objC Clients in early 2015.

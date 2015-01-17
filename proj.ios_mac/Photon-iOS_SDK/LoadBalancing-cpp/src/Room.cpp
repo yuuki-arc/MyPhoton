@@ -23,7 +23,6 @@ namespace ExitGames
 			, mPlayerCount(0)
 			, mMaxPlayers(0)
 			, mIsOpen(false)
-			, mCustomProperties(Hashtable())
 		{
 		}
 

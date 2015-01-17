@@ -6,14 +6,49 @@
 Questions? Write to developer@exitgames.com or visit forum.exitgames.com
 
 
+*** version 4.0.0.0
+	Date: 11-11-2014
+	- changed: the constuctors of classes Client and Peer now take a value of the new ConnectionProtocol enumeration as parameter instead of the old bool parameter "useTCP"
+	- added: optional parameters "lobbyName" and "lobbyType" to Peer::opJoinLobby()
+	- added: optional parameters "lobbyName", "lobbyType", "playerTtl" and "emptyRoomTtl" to Peer::opCreateRoom()
+	- added: optional parameters "createIfNotExists", "playerNumber", "cacheSliceIndex", "playerTtl" and "emptyRoomTtl" to Peer::opJoinRoom()
+	- added: optional parameters "matchmakingMode", "lobbyName", "lobbyType" and "sqlLobbyFilter" to Peer:opJoinRandomRoom()
+	- added: Peer::opLobbyStats()
+	- added: Peer::opChangeGroups()
+	- added: Client::getDisconnectedCause()
+	- added: Listener::onLobbyStatsResponse()
+	- added: Listener::onLobbyStatsUpdate()
+	- added: optional parameter "lobbyStats" to Peer::opAuthenticate()
+	- added: optional paramters "interestGroup", "forwardToWebhook" and "cacheSliceIndex" to Peer::opRaiseEvent()
+	- added: constructor overload for class AuthenticationValues, taking parameters optional parameters "type", "parameters" and "data"
+	- added: optional parameter "autoLobbyStats" to constructor of class Client
+	- added: class LobbyStats
+	- added: Player::getIsInactive()
+	- added: MutableRoom::getPlayerTtl()
+	- added: MutableRoom::getRoomTtl()
+	- added: Peer::opWebRpc()
+	- added: new parameter "isInactive" to Listener::leaveRoomEventAction()
+	- added: Listener::disconnectEventAction()
+	- added: Listener::webRpcReturn()
+	- added: Listener::onCacheSliceChanged()
+	- added: optional parameter "webForward" to MutableRoom::mergeCustomProperties()
+	- added: optional parameter "webForward" to MutableRoom::addCustomProperty()
+	- added: optional parameter "webForward" to MutableRoom::addCustomProperties()
+	- added: optional parameter "webForward" to MutableRoom::removeCustomProperty()
+	- added: optional parameter "webForward" to MutableRoom::removeCustomProperties()
+	- changed: class Client is no longer a subclass of class Peer, but instead now contains a Peer instance, all previously inherited public API of the Peer that still makes sense for a Client is now avaiable in the form of wrapper functions
+	- fixed: Client::getIsInLobby() has not returned the correct value when getting called inside Listener::connectReturn() or Listener::joinLobbyReturn()
+
+
 *** version 3.2.5.4
 	Date: 09-03-2014
-	- fixed: removed printout of payload of received operation responses and events, as its' too expensive for big messages
-	 -fixed: the Peer::opRaiseEvent() overload for 1D arrays now accepts an int for the size parameter instead of a short, when the array element type is nByte
+	- fixed: removed printout of payload of received operation responses in Client::onOperationResponse(), as its' too expensive for big messages
+	- fixed: reverted the accidental reintroduction of the printout of the payload for received events in Client::onEvent()
+	- fixed: the Peer::opRaiseEvent() overload for 1D arrays now accepts an int for the size parameter instead of a short, when the array element type is nByte
 
 
 *** version 3.2.5.3
-	Date: 02-04-2013
+	Date: 02-04-2014
 	- fixed: when a client attempted to join a room which got shut down just while the client has been in transition from the master server to the game server, the client got stuck in a state of trying to join forever
 	- fixed: v3.2.5.0 has introduced a crash bug that could happen under certain circumstances when receiving room list updates
 	- fixed: v3.2.5.0 has introduced a bug that a call to Client::connect() would reset the local players name to the value that has been passed to the clients constructor, even if it has been updated by a call to Client::getLocalPlayer()::setName() in the meantime
@@ -22,7 +57,7 @@ Questions? Write to developer@exitgames.com or visit forum.exitgames.com
 
 
 *** version 3.2.5.2
-	Date: 01-17-2013
+	Date: 01-17-2014
 	- fixed: the Peer::opRaiseEvent() overload for multi dimensional arrays has not been const correct
 
 
@@ -84,7 +119,7 @@ Questions? Write to developer@exitgames.com or visit forum.exitgames.com
 
 
 *** version 3.0.4.3
-	Date: 01-14-2012
+	Date: 01-14-2013
 	- fixed: Room::getPlayerCount() now returns correct values
 
 

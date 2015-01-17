@@ -17,8 +17,8 @@ namespace ExitGames
 			static const nByte JOIN               = 255;
 			static const nByte LEAVE              = 254;
 			static const nByte PROPERTIES_CHANGED = 253;
+			static const nByte DISCONNECT         = 252;
 		}
-
 		/** @file */
 	}
 }

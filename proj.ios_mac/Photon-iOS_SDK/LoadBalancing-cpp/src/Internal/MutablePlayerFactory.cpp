@@ -17,10 +17,10 @@ namespace ExitGames
 		{
 		}
 
-		MutablePlayer* MutablePlayerFactory::create(int number, const Common::Hashtable& properties, const MutableRoom* const pRoom, Peer* pPeer)
+		MutablePlayer* MutablePlayerFactory::create(int number, const Common::Hashtable& properties, const MutableRoom* const pRoom, Client* pClient)
 		{
 			MutablePlayer* p;
-			return ALLOCATE(MutablePlayer, p, number, properties, pRoom, pPeer);
+			return ALLOCATE(MutablePlayer, p, number, properties, pRoom, pClient);
 		}
 
 		void MutablePlayerFactory::destroy(const MutablePlayer* pPlayer)

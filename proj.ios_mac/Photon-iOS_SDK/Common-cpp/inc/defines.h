@@ -33,6 +33,10 @@
 #	define EG_DEBUGGER
 #endif
 
+#if !defined EG_NOLOGGING
+#	define EG_LOGGING
+#endif
+
 #if defined _EG_WINDOWS_PLATFORM && _MSC_VER >= 1600
 #	define EG_PLATFORM_SUPPORTS_MOVE_SEMANTICS
 #endif
@@ -83,9 +87,9 @@
 #else
 #	include <string.h>
 #endif
-#define MEMCPY(dst, src, size)	memcpy(dst, src, size)
-#define MEMSET(dst, c, size)	memset(dst, c, size)
-#define ZEROAT(ptr)				(void)MEMSET(ptr, 0, sizeof(*ptr))
+#define MEMCPY(dst, src, size) memcpy(dst, src, size)
+#define MEMSET(dst, c, size)   memset(dst, c, size)
+#define ZEROAT(ptr)            (void)MEMSET(ptr, 0, sizeof(*ptr))
 
 // Strings //////////////////////////////////////
 #define STRINGIFY(param) #param
@@ -136,11 +140,11 @@ typedef wchar_t EG_CHAR;
 #	endif
 #	include <Windows.h>
 #	include <Mmsystem.h>
-#   define GETTIMEMS() static_cast<int>(timeGetTime()) // returns the number of milliseconds for which the PC was powered on - accuracy: 1ms - overhead: medium
-#   define GETUPTIMEMS() static_cast<int>(GetTickCount()) // returns the number of milliseconds for which the PC was powered on - accuracy: 50ms - overhead. small
+#	define GETTIMEMS() static_cast<int>(timeGetTime()) // returns the number of milliseconds for which the PC was powered on - accuracy: 1ms - overhead: medium
+#	define GETUPTIMEMS() static_cast<int>(GetTickCount()) // returns the number of milliseconds for which the PC was powered on - accuracy: 50ms - overhead. small
 #elif defined _EG_UNIX_PLATFORM
-#   define GETTIMEMS getTimeUnix // returns the number of milliseconds passed since 1970 (overflowing all about 49 days!)
-#   define GETUPTIMEMS getTimeUnix // returns the number of milliseconds passed since 1970 (overflowing all about 49 days!)
+#	define GETTIMEMS getTimeUnix // returns the number of milliseconds passed since 1970 (overflowing all about 49 days!)
+#	define GETUPTIMEMS getTimeUnix // returns the number of milliseconds passed since 1970 (overflowing all about 49 days!)
 #endif
 
 #include <stdio.h>
@@ -227,7 +231,7 @@ typedef wchar_t EG_CHAR;
 #	define DBGPRINTF_MEMORY(...)        ((void)0)
 #endif
 
-#if (DBGPRINTF_PERFORMANCE_ACTIVE)
+#if(DBGPRINTF_PERFORMANCE_ACTIVE)
 #	define DBGPRINTF_PERFORMANCE        fprintf(stderr, DBGPRINTF_EXSTR_FORMAT, "PERFORMANCE", CUTPATH(__FILE__), __FUNCTION__, __LINE__), __DBGPRINTF
 #else
 #	define DBGPRINTF_PERFORMANCE(...)   ((void)0)

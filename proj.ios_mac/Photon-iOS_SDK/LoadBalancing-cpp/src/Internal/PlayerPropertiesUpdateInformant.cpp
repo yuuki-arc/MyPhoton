@@ -19,6 +19,20 @@ namespace ExitGames
 					if(room.getPlayers()[i]->getNumber() == number)
 						PlayerPropertiesCacher::cache(*room.getNonConstPlayers()[i], properties);
 			}
+
+			bool PlayerPropertiesUpdateInformant::setIsInactive(MutableRoom& room, int number, bool isInactive)
+			{
+				for(unsigned int i=0; i<room.getPlayers().getSize(); ++i)
+				{
+					if(room.getPlayers()[i]->getNumber() == number)
+					{
+						PlayerPropertiesCacher::setIsInactive(*room.getNonConstPlayers()[i], isInactive);
+						return true;
+					}
+				}
+				return false;
+			}
+
 		}
 	}
 }

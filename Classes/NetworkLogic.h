@@ -1,11 +1,11 @@
 #ifndef __NETWORK_LOGIC_H
 #define __NETWORK_LOGIC_H
 
-#include <array>
-#include "LoadBalancing-cpp/inc/Client.h"
+#include "OutputListener.h"
 #include "Constant.h"
+#include <array>
 
-typedef enum _State
+enum State
 {
 	STATE_INITIALIZED = 0,
 	STATE_CONNECTING,
@@ -16,18 +16,15 @@ typedef enum _State
 	STATE_LEFT,
 	STATE_DISCONNECTING,
 	STATE_DISCONNECTED
-} State;
+};
 
-typedef enum _Input
+enum Input
 {
 	INPUT_NON = 0,
-	INPUT_CREATE_GAME,
-	INPUT_JOIN_RANDOM_GAME,
-	INPUT_LEAVE_GAME,
+	INPUT_1,
+	INPUT_2,
 	INPUT_EXIT
-} Input;
-
-
+};
 
 class NetworkLogicListener : public ExitGames::Common::ToString
 {
@@ -36,8 +33,6 @@ public:
 	virtual void stateUpdate(State newState) = 0;
 	virtual ExitGames::Common::JString& toString(ExitGames::Common::JString& retStr, bool withTypes=false) const;
 };
-
-
 
 class StateAccessor
 {
@@ -56,8 +51,7 @@ private:
 class NetworkLogic : private ExitGames::LoadBalancing::Listener
 {
 public:
-	NetworkLogic(const wchar_t* appVersion,
-				ExitGames::LoadBalancing::AuthenticationValues authenticationValues = ExitGames::LoadBalancing::AuthenticationValues());
+	NetworkLogic(OutputListener* listener, const ExitGames::LoadBalancing::AuthenticationValues& authenticationValues=ExitGames::LoadBalancing::AuthenticationValues());
 	void registerForStateUpdates(NetworkLogicListener* listener);
 	void run(void);
 	void connect(void);
@@ -65,21 +59,19 @@ public:
 	void opJoinRandomRoom(void);
 	void disconnect(void);
 	void sendEvent(void);
-
-	Input getLastInput(void) const;
-	void setLastInput(Input newInput);
-	State getState(void) const;
-
+    
     // ルームが存在するか否かを返すメソッド
     bool isRoomExists(void);
     // イベントを送信するメソッド
     void sendEvent(nByte code, ExitGames::Common::Hashtable* eventContent);
     
-    // 自分のプレイヤー番号
-    int playerNr = 0;
+	Input getLastInput(void) const;
+	void setLastInput(Input newInput);
+	State getState(void) const;
+    int getActorNr(void) const;
+
     // イベントキュー
     std::queue<std::array<float, 3>> eventQueue;
-    
 private:
 	// receive and print out debug out here
 	virtual void debugReturn(ExitGames::Common::DebugLevel::DebugLevel debugLevel, const ExitGames::Common::JString& string);
@@ -92,8 +84,13 @@ private:
 
 	// events, triggered by certain operations of all players in the same room
 	virtual void joinRoomEventAction(int playerNr, const ExitGames::Common::JVector<int>& playernrs, const ExitGames::LoadBalancing::Player& player);
-	virtual void leaveRoomEventAction(int playerNr);
+	virtual void leaveRoomEventAction(int playerNr, bool isInactive);
+	virtual void disconnectEventAction(int playerNr);
 	virtual void customEventAction(int playerNr, nByte eventCode, const ExitGames::Common::Object& eventContent);
+    
+    virtual void onLobbyStatsResponse(const ExitGames::Common::JVector<ExitGames::LoadBalancing::LobbyStats>& lobbyStats);
+    virtual void onLobbyStatsUpdate(const ExitGames::Common::JVector<ExitGames::LoadBalancing::LobbyStats>& lobbyStats);
+    virtual void onAvailableRegions(const ExitGames::Common::JVector<ExitGames::Common::JString>& availableRegions, const ExitGames::Common::JVector<ExitGames::Common::JString>& availableRegionServers);
 
 	// callbacks for operations on PhotonLoadBalancing server
 	virtual void connectReturn(int errorCode, const ExitGames::Common::JString& errorString);
@@ -106,10 +103,12 @@ private:
 	virtual void leaveLobbyReturn(void);
 
 	ExitGames::LoadBalancing::Client mLoadBalancingClient;
-	ExitGames::Common::JString mGameID;
-//	ExitGames::Common::Logger mLogger;
+	ExitGames::Common::JString mLastJoinedRoom;
+	int mLastActorNr;
+	ExitGames::Common::Logger mLogger;
 	StateAccessor mStateAccessor;
 	Input mLastInput;
+	OutputListener* mpOutputListener;
 };
 
 #endif

@@ -154,7 +154,7 @@
 
 
 
-#if (defined HEADER_NEW_DES_H || defined HEADER_DES_H) && !defined DES_LONG
+#if(defined HEADER_NEW_DES_H || defined HEADER_DES_H) && !defined DES_LONG
 
 /* If this is set to 'unsigned int' on a DEC Alpha, this gives about a
 

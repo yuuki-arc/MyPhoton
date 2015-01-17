@@ -1,15 +1,13 @@
 var a00053 =
 [
-    [ "OperationRequest", "a00053.html#a2bc8707d9974d0fa2b4e1c774c6d1f21", null ],
-    [ "~OperationRequest", "a00053.html#a185c2b90693491abc98f27670e533ef5", null ],
-    [ "OperationRequest", "a00053.html#aaebfc32e621132ff6d1c90f7e931d0c5", null ],
-    [ "operator=", "a00053.html#a2418a7ed9649214c9e0562e01bba1bac", null ],
-    [ "operator[]", "a00053.html#a6106cd0aaca315f9031eb162ea3b8424", null ],
-    [ "toString", "a00053.html#a4ea786e707e69fbcc04d7ecfeebf1fc2", null ],
-    [ "getParameterForCode", "a00053.html#a5d582f2da531b6c369f2ac72a8487ef2", null ],
-    [ "getOperationCode", "a00053.html#a0eddb8dbdaabe75f4667f8441f30c246", null ],
-    [ "getParameters", "a00053.html#a4947eb012706e44fce5fa4f4cf3e9381", null ],
-    [ "getParameters", "a00053.html#acddbcaa288b744ff02494d91815aeebb", null ],
-    [ "setParameters", "a00053.html#a084faea307135bf67922761655664fa9", null ],
-    [ "PhotonPeer", "a00053.html#a2192d2d2451f60af6a8149beeb8df333", null ]
+    [ "Channel", "a00053.html#a653668f9d0073b847e6e9d634a3ce366", null ],
+    [ "getName", "a00053.html#a03702ca16a7e112dfdf8803377802f1c", null ],
+    [ "getMessageCount", "a00053.html#a8104cb780d8e18097d6d376c5233dfd5", null ],
+    [ "getSenders", "a00053.html#afed9e2328867e18585bc255a3c791192", null ],
+    [ "getMessages", "a00053.html#a83a975263ed2ece9ff8f589662d85bb2", null ],
+    [ "add", "a00053.html#aa158c3a3cfdb6e17f48205a0a21b29cc", null ],
+    [ "add", "a00053.html#ae813fef8ed0af153d8098cf3ee364f5e", null ],
+    [ "clearMessages", "a00053.html#a27648d8fe0c96c9d5ecd199eaa5f1907", null ],
+    [ "isPrivate", "a00053.html#a1e075ff8d24237c24f92bca4748c9da0", null ],
+    [ "toString", "a00053.html#afc9af4be5754b9d5a445f39f7b6cd554", null ]
 ];

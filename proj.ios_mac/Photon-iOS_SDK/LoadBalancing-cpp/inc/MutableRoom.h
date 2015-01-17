@@ -24,6 +24,8 @@ namespace ExitGames
 		class MutableRoom : public Room
 		{
 		public:
+			using Room::toString;
+
 			virtual ~MutableRoom(void);
 
 			MutableRoom(const MutableRoom& toCopy);
@@ -38,16 +40,20 @@ namespace ExitGames
 			const Player* getPlayerForNumber(int playerNumber) const;
 			int getMasterClientID(void) const;
 			const Common::JVector<Common::JString>& getPropsListedInLobby(void) const;
-			void setPropsListedInLobby(const Common::JVector<Common::JString>& propsListedInLobby);
+			void setPropsListedInLobby(const Common::JVector<Common::JString>& propsListedInLobby, bool webForward=false);
+			int getPlayerTtl(void) const;
+			int getRoomTtl(void) const;
 
-			void mergeCustomProperties(const Common::Hashtable& customProperties);
-			template<typename ktype, typename vtype> void addCustomProperty(const ktype& key, const vtype& value);
-			void addCustomProperties(const Common::Hashtable& customProperties);
-			template<typename ktype> void removeCustomProperty(const ktype& key);
-			template<typename ktype> void removeCustomProperties(const ktype* const keys, unsigned int count);
+			void mergeCustomProperties(const Common::Hashtable& customProperties, bool webForward=false);
+			template<typename ktype, typename vtype> void addCustomProperty(const ktype& key, const vtype& value, bool webForward=false);
+			void addCustomProperties(const Common::Hashtable& customProperties, bool webForward=false);
+			template<typename ktype> void removeCustomProperty(const ktype& key, bool webForward=false);
+			template<typename ktype> void removeCustomProperties(const ktype* const keys, unsigned int count, bool webForward=false);
 			virtual Common::JString toString(bool withTypes=false, bool withCustomProperties=false, bool withPlayers=false) const;
 		protected:
-			MutableRoom(const Common::JString& name, const Common::Hashtable& properties, Peer* pPeer, const Common::JVector<Common::JString>& propsListedInLobby=Common::JVector<Common::JString>());
+			using Room::payloadToString;
+
+			MutableRoom(const Common::JString& name, const Common::Hashtable& properties, Client* pClient, const Common::JVector<Common::JString>& propsListedInLobby, int playerTtl, int roomTtl);
 
 			virtual bool getIsMutable(void) const;
 
@@ -70,12 +76,14 @@ namespace ExitGames
 
 			typedef Room super;
 
-			Peer* mLoadBalancingPeer;
+			Client* mLoadBalancingClient;
 			bool mIsVisible;
 			Common::JVector<Player*> mPlayers;
 			int mMasterClientID;
 			Common::JVector<Common::JString> mPropsListedInLobby;
 			int mLocalPlayerNumber;
+			int mPlayerTtl;
+			int mRoomTtl;
 
 			friend class MutableRoomFactory;
 			friend class Internal::RoomPropertiesCacher;
@@ -86,26 +94,26 @@ namespace ExitGames
 
 
 		template<typename ktype, typename vtype>
-		void MutableRoom::addCustomProperty(const ktype& key, const vtype& value)
+		void MutableRoom::addCustomProperty(const ktype& key, const vtype& value, bool webForward)
 		{
 			Common::Hashtable hash;
 			hash.put(key, value);
-			addCustomProperties(hash);
+			addCustomProperties(hash, webForward);
 		}
 
 		template<typename ktype>
-		void MutableRoom::removeCustomProperty(const ktype& key)
+		void MutableRoom::removeCustomProperty(const ktype& key, bool webForward)
 		{
-			removeCustomProperties(&key, 1);
+			removeCustomProperties(&key, 1, webForward);
 		}
 
 		template<typename ktype>
-		void MutableRoom::removeCustomProperties(const ktype* const keys, unsigned int count)
+		void MutableRoom::removeCustomProperties(const ktype* const keys, unsigned int count, bool webForward)
 		{
 			Common::Hashtable hash;
 			for(unsigned int i=0; i<count; i++)
 				hash.put(keys[i]);
-			mergeCustomProperties(hash);
+			mergeCustomProperties(hash, webForward);
 		}
 	}
 }

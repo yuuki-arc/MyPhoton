@@ -30,6 +30,7 @@ namespace ExitGames
 				static const int   ENET_PEER_PACKET_LOSS_SCALE        = (1 << 16);
 				static const int   ENET_PEER_DEFAULT_ROUND_TRIP_TIME  =       300;
 				static const int   ENET_PEER_PACKET_THROTTLE_INTERVAL =      5000;
+				static const int   CRC_LENGTH                         =         4;
 			}
 		}
 	}

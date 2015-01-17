@@ -9,7 +9,6 @@
 #include "Common-cpp/inc/porting.h"
 #include "Common-cpp/inc/platformLayer.h"
 #include "Common-cpp/inc/Dictionary.h"
-#include "Common-cpp/inc/UTF8String.h"
 #include "Common-cpp/inc/ANSIString.h"
 #include "Common-cpp/inc/EGTime.h"
 #include "Common-cpp/inc/Serializer.h"

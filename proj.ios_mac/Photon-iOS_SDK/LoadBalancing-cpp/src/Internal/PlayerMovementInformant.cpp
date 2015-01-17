@@ -12,31 +12,28 @@ namespace ExitGames
 	{
 		namespace Internal
 		{
-			template<>
-			void PlayerMovementInformant::onEnter<false>(MutableRoom& room, Player& player)
-			{
-				room.addPlayer(player);
-			}
-
-			template<>
-			void PlayerMovementInformant::onEnter<true>(MutableRoom& room, Player& player)
+			void PlayerMovementInformant::onEnterLocal(MutableRoom& room, Player& player)
 			{
 				room.addLocalPlayer(player);
 			}
 
-			void PlayerMovementInformant::onEnter(MutableRoom& room, int number, const Common::Hashtable& properties)
+			void PlayerMovementInformant::onEnterRemote(MutableRoom& room, int number, const Common::Hashtable& properties)
 			{
-				room.addPlayer(number, properties);
+				if(room.getPlayerForNumber(number))
+				{
+					PlayerPropertiesUpdateInformant::setIsInactive(room, number, false);
+					PlayerPropertiesUpdateInformant::onUpdate(room, number, properties);
+				}
+				else
+					room.addPlayer(number, properties);
 			}
 
-			template<>
-			bool PlayerMovementInformant::onLeave<false>(MutableRoom& room, int number)
+			bool PlayerMovementInformant::onLeaveRemote(MutableRoom& room, int number)
 			{
 				return room.removePlayer(number);
 			}
 
-			template<>
-			bool PlayerMovementInformant::onLeave<true>(MutableRoom& room, int number)
+			bool PlayerMovementInformant::onLeaveLocal(MutableRoom& room, int number)
 			{
 				room.removeAllPlayers();
 				return true;

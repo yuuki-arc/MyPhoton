@@ -281,7 +281,7 @@ struct bignum_ctx
 
 #define bn_set_high(r,a,n) \
 	{ \
-	if ((a)->top > (n)) \
+	if((a)->top > (n)) \
 		{ \
 		(r)->top=(a)->top-n; \
 		(r)->d= &((a)->d[n]); \
@@ -368,10 +368,10 @@ struct bignum_ctx
 	lt=(bl)*(lt); \
 	m1=(bl)*(ht); \
 	ht =(bh)*(ht); \
-	m=(m+m1)&BN_MASK2; if (m < m1) ht+=L2HBITS((BN_ULONG)1); \
+	m=(m+m1)&BN_MASK2; if(m < m1) ht+=L2HBITS((BN_ULONG)1); \
 	ht+=HBITS(m); \
 	m1=L2HBITS(m); \
-	lt=(lt+m1)&BN_MASK2; if (lt < m1) ht++; \
+	lt=(lt+m1)&BN_MASK2; if(lt < m1) ht++; \
 	(l)=lt; \
 	(h)=ht; \
 	}
@@ -388,7 +388,7 @@ struct bignum_ctx
 	h*=h; \
 	h+=(m&BN_MASK2h1)>>(BN_BITS4-1); \
 	m =(m&BN_MASK2l)<<(BN_BITS4+1); \
-	l=(l+m)&BN_MASK2; if (l < m) h++; \
+	l=(l+m)&BN_MASK2; if(l < m) h++; \
 	(lo)=l; \
 	(ho)=h; \
 	}
@@ -402,9 +402,9 @@ struct bignum_ctx
 	mul64(l,h,(bl),(bh)); \
  \
 	/* non-multiply part */ \
-	l=(l+(c))&BN_MASK2; if (l < (c)) h++; \
+	l=(l+(c))&BN_MASK2; if(l < (c)) h++; \
 	(c)=(r); \
-	l=(l+(c))&BN_MASK2; if (l < (c)) h++; \
+	l=(l+(c))&BN_MASK2; if(l < (c)) h++; \
 	(c)=h&BN_MASK2; \
 	(r)=l; \
 	}
@@ -418,7 +418,7 @@ struct bignum_ctx
 	mul64(l,h,(bl),(bh)); \
  \
 	/* non-multiply part */ \
-	l+=(c); if ((l&BN_MASK2) < (c)) h++; \
+	l+=(c); if((l&BN_MASK2) < (c)) h++; \
 	(c)=h&BN_MASK2; \
 	(r)=l&BN_MASK2; \
 	}
