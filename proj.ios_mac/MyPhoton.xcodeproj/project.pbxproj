@@ -67,6 +67,7 @@
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
 		D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B0611A1803AB670077942B /* CoreMotion.framework */; };
+		DD300B491A69DB82007509EE /* PhotonLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD300B471A69DB82007509EE /* PhotonLogger.cpp */; };
 		DDD903721A69682300AF8919 /* XTLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DDD903701A69682300AF8919 /* XTLayer.cpp */; };
 		DDD903751A69743600AF8919 /* icon-reflection-none-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = DDD903741A69743600AF8919 /* icon-reflection-none-blue.png */; };
 /* End PBXBuildFile section */
@@ -162,6 +163,9 @@
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D6B0611A1803AB670077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
+		DD300B461A69D604007509EE /* OutputListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputListener.h; sourceTree = "<group>"; };
+		DD300B471A69DB82007509EE /* PhotonLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhotonLogger.cpp; sourceTree = "<group>"; };
+		DD300B481A69DB82007509EE /* PhotonLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotonLogger.h; sourceTree = "<group>"; };
 		DDD903701A69682300AF8919 /* XTLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XTLayer.cpp; sourceTree = "<group>"; };
 		DDD903711A69682300AF8919 /* XTLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTLayer.h; sourceTree = "<group>"; };
 		DDD903741A69743600AF8919 /* icon-reflection-none-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-reflection-none-blue.png"; sourceTree = "<group>"; };
@@ -293,6 +297,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				DD300B461A69D604007509EE /* OutputListener.h */,
 				A5B3B5141A67806400A05F36 /* NetworkLogic.cpp */,
 				A5B3B5131A67805B00A05F36 /* NetworkLogic.h */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
@@ -302,6 +307,8 @@
 				A5B3B5171A67BC8B00A05F36 /* Constant.h */,
 				DDD903701A69682300AF8919 /* XTLayer.cpp */,
 				DDD903711A69682300AF8919 /* XTLayer.h */,
+				DD300B471A69DB82007509EE /* PhotonLogger.cpp */,
+				DD300B481A69DB82007509EE /* PhotonLogger.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -502,6 +509,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				DD300B491A69DB82007509EE /* PhotonLogger.cpp in Sources */,
 				A5B3B5151A67806400A05F36 /* NetworkLogic.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,

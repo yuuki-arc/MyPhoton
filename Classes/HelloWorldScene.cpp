@@ -74,7 +74,8 @@ bool HelloWorld::init()
     
     // Photonネットワーククラスのインスタンスを作成
     CCLOG("pre-networkLogic new");
-    networkLogic = new NetworkLogic(L"1.0");
+    photonLogger = new PhotonLogger();
+    networkLogic = new NetworkLogic(photonLogger);
     CCLOG("after-networkLogic new");
     
     scheduleUpdate();
@@ -121,9 +122,9 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 //bool HelloWorld::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 //{
-//    CCLOG("onTouchBegan:%d", networkLogic->playerNr);
-//    if (networkLogic->playerNr) {
-//        this->addParticle(networkLogic->playerNr, touch->getLocation().x, touch->getLocation().y);
+//    CCLOG("onTouchBegan:%d", networkLogic->getActorNr());
+//    if (networkLogic->getActorNr()) {
+//        this->addParticle(networkLogic->getActorNr(), touch->getLocation().x, touch->getLocation().y);
 //        
 //        // イベント（タッチ座標）を送信
 //        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
@@ -138,8 +139,8 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 void HelloWorld::xtTouchesBegan(cocos2d::Point position)
 {
     CCLOG("xtTouchesBegan x: %f, y: %f", position.x, position.y);
-    if (networkLogic->playerNr) {
-        this->addParticle(networkLogic->playerNr, position.x, position.y);
+    if (networkLogic->getActorNr()) {
+        this->addParticle(networkLogic->getActorNr(), position.x, position.y);
         
         // イベント（タッチ座標）を送信
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
@@ -229,10 +230,10 @@ void HelloWorld::update(float delta)
             // ルームが存在すればジョイン、なければ作成する
             if (networkLogic->isRoomExists()) {
                 CCLOG("Join");
-                networkLogic->setLastInput(INPUT_JOIN_RANDOM_GAME);
+                networkLogic->setLastInput(INPUT_2);
             } else {
                 CCLOG("Create");
-                networkLogic->setLastInput(INPUT_CREATE_GAME);
+                networkLogic->setLastInput(INPUT_1);
             }
             break;
         case STATE_DISCONNECTED:
@@ -254,19 +255,19 @@ void HelloWorld::update(float delta)
         std::array<float, 3> arr = networkLogic->eventQueue.front();
         networkLogic->eventQueue.pop();
         
-        int playerNr = static_cast<int>(arr[0]);
+        int actorNr = static_cast<int>(arr[0]);
         float x = arr[1];
         float y = arr[2];
-        CCLOG("%d, %f, %f", playerNr, x, y);
+        CCLOG("%d, %f, %f", actorNr, x, y);
         
-        this->addParticle(playerNr, x, y);
+        this->addParticle(actorNr, x, y);
     }
 }
 
-void HelloWorld::addParticle(int playerNr, float x, float y)
+void HelloWorld::addParticle(int actorNr, float x, float y)
 {
     ParticleSystem* particle;
-    switch (playerNr) {
+    switch (actorNr) {
         case 1:
             particle = ParticleFire::create();
             break;
